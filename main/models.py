@@ -56,6 +56,7 @@ class Banner(BaseModel):
     description_es = models.TextField(default='')
 
     order = models.PositiveIntegerField(default=0)
+    
 
 
 class AboutUs(BaseModel):

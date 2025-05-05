@@ -3,3 +3,5 @@ db.sqlite3
 media
 !migrations/__init__.py
 migrations/*
+main/__pycache__
+config/__pycache__
