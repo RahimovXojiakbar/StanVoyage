@@ -1,3 +1,10 @@
 from django.shortcuts import render
 
-# Create your views here.
+def list(request):
+    return render(request, 'list_page.html')
+
+
+def detail(request):
+    return render(request, 'detail_page.html')
+
+
