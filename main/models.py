@@ -8,6 +8,9 @@ class BaseModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        abstract = True
+
 
 ########################################################
 # Social and Contact
@@ -123,7 +126,6 @@ class OurMission(BaseModel):
     order = models.PositiveIntegerField(default=0)
 
 
-
 class Instructions(BaseModel):
     title_en = models.CharField(max_length=255)
     title_ru = models.CharField(max_length=255,  null=True, blank=True)
@@ -137,10 +139,6 @@ class Instructions(BaseModel):
     content_de = models.CharField(max_length=255, null=True, blank=True)
     content_es = models.CharField(max_length=255, null=True, blank=True)
 # Abdullh end
-
-
-
-
 
 
 class Blog(BaseModel):
