@@ -10,5 +10,6 @@ admin.site.register(models.TripDays)
 admin.site.register(models.Service)
 admin.site.register(models.TripImages)
 admin.site.register(models.TripOrder)
+admin.site.register(models.Blog)
 
 
