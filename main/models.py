@@ -150,11 +150,11 @@ class Blog(BaseModel):
     title_de = models.CharField(max_length=255,  null=True, blank=True)
     title_es = models.CharField(max_length=255,  null=True, blank=True)
 
-    description_en = models.TextField(default='')
-    description_ru = models.TextField(default='')
-    description_fr = models.TextField(default='')
-    description_de = models.TextField(default='')
-    description_es = models.TextField(default='')
+    description_en = models.TextField(default='', blank=True, null=True)
+    description_ru = models.TextField(default='', blank=True, null=True)
+    description_fr = models.TextField(default='', blank=True, null=True)
+    description_de = models.TextField(default='', blank=True, null=True)
+    description_es = models.TextField(default='', blank=True, null=True)
 
 
 class BlogImage(BaseModel):
@@ -243,7 +243,7 @@ class Locations(BaseModel):
 class LocationImage(BaseModel):
     location = models.ForeignKey(Locations, on_delete=models.CASCADE, null=True, blank=True)
     image = models.ImageField(upload_to='location_images/')
-    
+
 
 class Trip(BaseModel):
     image = models.ImageField(upload_to='trip_image')
