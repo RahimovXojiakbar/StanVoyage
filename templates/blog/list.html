@@ -36,7 +36,7 @@
                     <td class="text-center"><img src="{{blog.image.url}}" width="60px" height="30px" alt="rasm"></td>
                     <td class="text-center">{{blog.title_en}}</td>
                     <td class="text-center">
-                        <a href="{% url 'detail_page' %}" class="btn btn-warning"><i class="ion-android-create"></i></a>
+                        <a href="{% url 'blog_detail' blog.uuid %}" class="btn btn-warning"><i class="ion-android-create"></i></a>
                         <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"><i class="ion-android-delete"></i></a>
                     </td>
                   </tr>
@@ -51,55 +51,64 @@
 
 <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">(model nomi) yaratish</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label>Image</label>
-          <input type="file" class="form-control">
+    <form action="{% url 'blog_create' %}" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Blog yaratish</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <div class="form-group">
-          <label>Inglizcha nom</label>
-          <input type="text" class="form-control">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Image</label>
+            <input type="file" class="form-control" name="image">
+          </div>
+          <div class="form-group">
+            <label>Inglizcha nom</label>
+            <input type="text" class="form-control" name="title_en">
+          </div>
+          <div class="form-group">
+              <label>Inglizcha tavsifi</label>
+              <textarea class="summernote" name="description_en"></textarea>
+          </div>
         </div>
-        <div class="form-group">
-            <label>Inglizcha tavsifi</label>
-            <textarea class="summernote"></textarea>
+        <div class="modal-footer bg-whitesmoke br">
+          <button type="submit" class="btn btn-primary"><i class="ion-plus"></i> Yaratish</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Yopish</button>
         </div>
       </div>
-      <div class="modal-footer bg-whitesmoke br">
-        <button type="button" class="btn btn-primary"><i class="ion-plus"></i> Yaratish</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Yopish</button>
-      </div>
-    </div>
+    </form>
+    
   </div>
 </div>
 
-
+{% for blog in blogs %}
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">(model nomi)</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+    <form action="{% url 'blog_delete' blog.uuid %}" method="post">
+      {% csrf_token %}
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Blog</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h5>Blog o'chirilsinmi</h5>
+        </div>
+        <div class="modal-footer bg-whitesmoke br">
+          <button type="submit" class="btn btn-danger"><i class="ion-android-delete"></i> O'chirish</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Yopish</button>
+        </div>
       </div>
-      <div class="modal-body">
-        <h5>(model title en) o'chirilsinmi</h5>
-      </div>
-      <div class="modal-footer bg-whitesmoke br">
-        <button type="button" class="btn btn-danger"><i class="ion-android-delete"></i> O'chirish</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Yopish</button>
-      </div>
-    </div>
+    </form>
+    
   </div>
 </div>
+{% endfor %}
 
 
 {% endblock content %}
