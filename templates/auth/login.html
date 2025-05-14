@@ -1,0 +1,73 @@
+{% load static %}
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title>Otika - Admin Dashboard Template</title>
+  <!-- General CSS Files -->
+  <link rel="stylesheet" href="{% static 'assets/css/app.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/bundles/summernote/summernote-bs4.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/bundles/codemirror/lib/codemirror.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/bundles/codemirror/theme/duotone-dark.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/bundles/jquery-selectric/selectric.css' %}">
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/components.css' %}">
+  <!-- Custom style CSS -->
+  <link rel="stylesheet" href="{% static 'assets/css/custom.css' %}">
+  <link rel='shortcut icon' type='image/x-icon' href="{% static 'assets/img/favicon.ico' %}" />
+  <link rel="stylesheet" href="{% static 'assets/bundles/ionicons/css/ionicons.min.css' %}">
+
+</head>
+<body>
+  <section class="section">
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
+        <div class="card card-primary">
+          <div class="card-header">
+            <h4>Login</h4>
+          </div>
+          <div class="card-body">
+            {% if error %}
+              <div class="alert alert-danger" role="alert">
+                {{ error }}
+              </div>
+            {% endif %}
+            <form method="POST" action="{% url 'login' %}" class="needs-validation" novalidate="">
+              {% csrf_token %}
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input id="username" type="text" class="form-control" name="username" tabindex="1" required autofocus>
+              </div>
+              <div class="form-group">
+                <label for="password" class="control-label">Password</label>
+                <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                  Login
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+  <script src="{% static 'assets/js/app.min.js' %}"></script>
+  <!-- JS Libraies -->
+  <script src="{% static 'assets/bundles/summernote/summernote-bs4.js' %}"></script>
+  <script src="{% static 'assets/bundles/codemirror/lib/codemirror.js' %}"></script>
+  <script src="{% static 'assets/bundles/codemirror/mode/javascript/javascript.js' %}"></script>
+  <script src="{% static 'assets/bundles/jquery-selectric/jquery.selectric.min.js' %}"></script>
+  <script src="{% static 'assets/bundles/ckeditor/ckeditor.js' %}"></script>
+  <!-- Page Specific JS File -->
+  <script src="{% static 'assets/js/page/ckeditor.js' %}"></script>
+  <!-- Template JS File -->
+  <script src="{% static 'assets/js/scripts.js' %}"></script>
+  <!-- Custom JS File -->
+  <script src="{% static 'assets/js/custom.js' %}"></script>
+</body>
+

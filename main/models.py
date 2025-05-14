@@ -127,6 +127,7 @@ class OurMission(BaseModel):
 
 
 class Instructions(BaseModel):
+    image = models.ImageField(upload_to='instructions/')
     title_en = models.CharField(max_length=255)
     title_ru = models.CharField(max_length=255,  null=True, blank=True)
     title_fr = models.CharField(max_length=255,  null=True, blank=True)
@@ -287,7 +288,7 @@ class TripDays(BaseModel):
     order = models.PositiveIntegerField(default=0)
 
 
-class  Service(BaseModel):
+class Service(BaseModel):
     trip = models.ForeignKey(Trip, on_delete=models.SET_NULL,null=True,blank=True, related_name='service')
     title_en = models.CharField(max_length=255)
     title_ru = models.CharField(max_length=255,  null=True, blank=True)
@@ -310,6 +311,8 @@ class TripImages(BaseModel):
     image = models.ImageField(upload_to='trip_images')
     order = models.PositiveIntegerField(default=0)
     
+
+
 
 class TripOrder(BaseModel):
     trip = models.ForeignKey(Trip, on_delete=models.SET_NULL, null=True, blank=True)

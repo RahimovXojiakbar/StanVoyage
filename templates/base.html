@@ -19,7 +19,6 @@
   <link rel="stylesheet" href="{% static 'assets/css/components.css' %}">
   <!-- Custom style CSS -->
   <link rel="stylesheet" href="{% static 'assets/css/custom.css' %}">
-  <link rel='shortcut icon' type='image/x-icon' href="{% static 'assets/img/favicon.ico' %}" />
   <link rel="stylesheet" href="{% static 'assets/bundles/ionicons/css/ionicons.min.css' %}">
 
 </head>
@@ -46,9 +45,9 @@
               <a href="profile.html" class="dropdown-item has-icon"> <i class="far
 										fa-user"></i> {{user.username}}
               <div class="dropdown-divider"></div>
-              <a href="auth-login.html" class="dropdown-item has-icon text-danger"> <i class="fas fa-sign-out-alt"></i>
+              <a href="{% url 'logout' %}" class="dropdown-item has-icon text-danger"> <i class="fas fa-sign-out-alt"></i>
                 Logout
-              </a>
+              </a>  
             </div>
           </li>
         </ul>
@@ -64,13 +63,97 @@
             <li class="dropdown active">
               <a href="index.html" class="nav-link"><i data-feather="monitor"></i><span>Dashboard</span></a>
             </li>
+            <li class="dropdown">
+              <a href="#" class="nav-link">
+                <i data-feather="share-2"></i><span>Ijtimoiy tarmoqlar</span>
+              </a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="nav-link">
+                <i data-feather="message-square"></i><span>Aloqa</span>
+              </a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="nav-link">
+                <i data-feather="briefcase"></i><span>Kompaniya ma'lumotlari</span>
+              </a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="nav-link">
+                <i data-feather="image"></i><span>Banner</span>
+              </a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="nav-link">
+                <i data-feather="info"></i><span>Biz haqimizda</span>
+              </a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="nav-link">
+                <i data-feather="grid"></i><span>Galereya</span>
+              </a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="nav-link">
+                <i data-feather="check-circle"></i><span>Nima uchun biz</span>
+              </a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="nav-link">
+                <i data-feather="target"></i><span>Bizning missiyamiz</span>
+              </a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="nav-link">
+                <i data-feather="book"></i><span>Yo'riqnomalar</span>
+              </a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="nav-link">
+                <i data-feather="file-text"></i><span>Blog</span>
+              </a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="nav-link">
+                <i data-feather="message-circle"></i><span>Izohlar</span>
+              </a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="nav-link">
+                <i data-feather="heart"></i><span>An'analar</span>
+              </a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="nav-link">
+                <i data-feather="star"></i><span>Mijozlar fikri</span>
+              </a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="nav-link">
+                <i data-feather="globe"></i><span>Davlatlar</span>
+              </a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="nav-link">
+                <i data-feather="map"></i><span>Sayohatlar</span>
+              </a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="nav-link">
+                <i data-feather="shopping-cart"></i><span>Sayohat buyurtmalari</span>
+              </a>
+            </li>
+            
           </ul>
         </aside>
       </div>
+
+      
       <!-- Main Content -->
       <div class="main-content">
-        {% include 'message.html' %}
         {% block content %}
+
+
         {% endblock content %}
       </div>
       <footer class="main-footer" >
