@@ -22,15 +22,12 @@ class BaseModel(models.Model):
 class Social(BaseModel):
     instagram = models.CharField(max_length=255, null=True, blank=True)
     telegram = models.CharField(max_length=255, null=True, blank=True)
-    facebook = models.CharField(max_length=255, null=True, blank=True)
-    youtube = models.CharField(max_length=255, null=True, blank=True)
-    linkedin = models.CharField(max_length=255, null=True, blank=True)
+    gmail = models.EmailField(max_length=255, null=True, blank=True)
     whatsapp = models.CharField(max_length=255, null=True, blank=True)
 
 class Contact(BaseModel):
     fullname = models.CharField(max_length=255)
     phone = models.CharField(max_length=255, null=True, blank=True)
-    message = models.TextField(default='')
     is_read = models.BooleanField(default=False)
 
 class CompanyInfo(BaseModel):
@@ -126,7 +123,7 @@ class OurMission(BaseModel):
     order = models.PositiveIntegerField(default=0)
 
 
-class Instructions(BaseModel):
+class   Instructions(BaseModel):
     image = models.ImageField(upload_to='instructions/')
     title_en = models.CharField(max_length=255)
     title_ru = models.CharField(max_length=255,  null=True, blank=True)
@@ -186,6 +183,12 @@ class Traditions(BaseModel):
     subtitle_fr = models.CharField(max_length=255,  null=True, blank=True)
     subtitle_de = models.CharField(max_length=255,  null=True, blank=True)
     subtitle_es = models.CharField(max_length=255,  null=True, blank=True) 
+
+    content_en = models.TextField()
+    content_ru = models.TextField(null=True, blank=True)
+    content_fr = models.TextField(null=True, blank=True)
+    content_de = models.TextField(null=True, blank=True)
+    content_es = models.TextField(null=True, blank=True)
 
     
 class Testimionals(BaseModel):
@@ -248,6 +251,7 @@ class LocationImage(BaseModel):
 
 class Trip(BaseModel):
     image = models.ImageField(upload_to='trip_image')
+    locations = models.CharField(max_length=255)
 
     title_en = models.CharField(max_length=255)
     title_ru = models.CharField(max_length=255,  null=True, blank=True)
@@ -290,6 +294,7 @@ class TripDays(BaseModel):
 
 class Service(BaseModel):
     trip = models.ForeignKey(Trip, on_delete=models.SET_NULL,null=True,blank=True, related_name='service')
+    image = models.ImageField(upload_to='service_images/')
     title_en = models.CharField(max_length=255)
     title_ru = models.CharField(max_length=255,  null=True, blank=True)
     title_fr = models.CharField(max_length=255,  null=True, blank=True)

@@ -88,7 +88,3 @@ def country_create(request):
 
 #     return render(request, 'locations/list.html', context)
 
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
