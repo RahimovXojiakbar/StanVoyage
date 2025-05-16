@@ -127,6 +127,7 @@ class OurMission(BaseModel):
 
 
 class Instructions(BaseModel):
+    image = models.ImageField(upload_to='instructions/')
     title_en = models.CharField(max_length=255)
     title_ru = models.CharField(max_length=255,  null=True, blank=True)
     title_fr = models.CharField(max_length=255,  null=True, blank=True)

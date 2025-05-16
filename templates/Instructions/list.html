@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<section class="section">
+    <div class="section-body">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-primary text-white-all">
+            <li class="breadcrumb-item"><a href="#"></i> Asosiy</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'list_page' %}"> Korsatma ro'yxati</a></li>
+          </ol>
+        </nav>
+        <div class="card">
+            <div class="card-header">
+                <h4>Korsatma ro'yxati</h4>
+                <div class="card-header-action">
+                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#basicModal">
+                    <i class="ion-plus"></i> Yaratish
+                </a>
+                </div>
+            </div>
+            <div class="card-body">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th class="text-center">Rasm</th>
+                    <th class="text-center">Inglizcha nomi</th>
+                    <th class="text-center">Harakatlar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for instruction in instructions %}
+                  <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td  class="text-center"><img width="60px" height="30px" src="{{instruction.image.url}}" alt="image"></td>
+                    <td class="text-center">{{instruction.title_en}}</td>
+                    <td class="text-center">
+                        <a href="{% url 'instructions_detail' instruction.uuid %}" class="btn btn-warning"><i class="ion-android-create"></i></a>
+                        <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"><i class="ion-android-delete"></i></a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+            </table>
+          </div>
+        </div>
+    </div>
+</section>
+
+
+<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Korsatma yaratish</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="{% url 'instructions_create' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+          <div class="modal-body">
+            <div class="form-group">
+              <label>Image</label>
+              <input type="file" class="form-control" name="image" required>
+            </div>
+            <div class="form-group">
+              <label>Inglizcha nom</label>
+              <input type="text" class="form-control" name="title_en" required>
+            </div>
+            <div class="form-group">
+                <label>Inglizcha tavsifi</label>
+                <textarea class="summernote" required name="content_en"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer bg-whitesmoke br">
+            <button type="submit" class="btn btn-primary"><i class="ion-plus"></i> Yaratish</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Yopish</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% for instruction in instructions %}
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form action="{% url 'instructions_delete' instruction.uuid %}" method="post">
+        {% csrf_token %}
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ko'rsatma</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h5>Ko'rsatma o'chirilsinmi</h5>
+          </div>
+          <div class="modal-footer bg-whitesmoke br">
+            <button type="submit" class="btn btn-danger"><i class="ion-android-delete"></i> O'chirish</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Yopish</button>
+          </div>
+        </div>
+    </form>
+  </div>
+</div>
+{% endfor %}
+
+
+{% endblock content %}
+
