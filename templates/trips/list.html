@@ -7,12 +7,13 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-primary text-white-all">
             <li class="breadcrumb-item"><a href="#"></i> Asosiy</a></li>
-            <li class="breadcrumb-item"><a href="#">Davlatlar ro'yxati</a></li>
+            <li class="breadcrumb-item"><a href="#">Sayohatlar ro'yxati</a></li>
           </ol>
         </nav>
+
         <div class="card">
             <div class="card-header">
-                <h4>Davlatlar ro'yxati</h4>
+                <h4>Sayohatlar ro'yxati</h4>
                 <div class="card-header-action">
                 <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createModal">
                     <i class="ion-plus"></i> Yaratish
@@ -30,13 +31,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                    {% for country in countries %}
+                    {% for trips in trips %}
                   <tr>
                     <th scope="row">1</th>
-                    <td class="text-center"><img src="{{country.image.url}}" width="60px" height="30px" alt="rasm"></td>
-                    <td class="text-center">{{country.title_en}}</td>
+                    <td class="text-center"><img src="{{trips.image.url}}" width="60px" height="30px" alt="rasm"></td>
+                    <td class="text-center">{{trips.title_en}}</td>
                     <td class="text-center">
-                        <a href="{% url 'country_detail' country.uuid %}" class="btn btn-warning"><i class="ion-android-create"></i></a>
+                        <a href="{% url 'trip_detail' trips.uuid %}" class="btn btn-warning"><i class="ion-android-create"></i></a>
                         <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"><i class="ion-android-delete"></i></a>
                     </td>
                   </tr>
@@ -45,16 +46,17 @@
             </table>
           </div>
         </div>
+
     </div>
 </section>
 
 <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <form action="{% url 'country_create' %}" method="post" enctype="multipart/form-data">
+    <form action="{% url 'trip_create' %}" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Davlat yaratish</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Sayohat yaratish</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -70,7 +72,7 @@
           </div>
           <div class="form-group">
               <label>Inglizcha tavsifi</label>
-              <textarea class="summernote" name="description_en" required ></textarea>
+              <textarea class="summernote" name="subtitle_en" required></textarea>
           </div>
         </div>
         <div class="modal-footer bg-whitesmoke br">
@@ -82,20 +84,20 @@
   </div>
 </div>
 
-{% for countries in countries %}
+{% for trip in trips %}
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <form action="{% url 'country_delete' countries.uuid %}" method="post">
+    <form action="{% url 'trip_delete' trip.uuid %}" method="post">
       {% csrf_token %}
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Davlat</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Sayohat</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <h5>Davlat o'chirilsinmi</h5>
+          <h5>Sayohat o'chirilsinmi</h5>
         </div>
         <div class="modal-footer bg-whitesmoke br">
           <button type="submit" class="btn btn-danger"><i class="ion-android-delete"></i> O'chirish</button>

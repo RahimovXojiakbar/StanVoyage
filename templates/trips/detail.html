@@ -7,68 +7,68 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-primary text-white-all">
             <li class="breadcrumb-item"><a href="#"></i> Asosiy</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'country_list' %}"> Davlatlar ro'yxati</a></li>
-            <li class="breadcrumb-item">Davlat</li>
+            <li class="breadcrumb-item"><a href="{% url 'trip_list' %}"> Sayohatlar ro'yxati</a></li>
+            <li class="breadcrumb-item">Sayohat</li>
           </ol>
         </nav>
         <div class="card">
             <div class="card-header">
-              <h4>Davlat tafsilotlari</h4>
+              <h4>Sayohat tafsilotlari</h4>
             </div>
             <div class="card-body">
                 <div class="d-flex justify-content-center mb-4">
-                    <img src="{{country.image.url}}" width="500px" height="300px" alt="rasm">
+                    <img src="{{trip.image.url}}" width="500px" height="300px" alt="rasm">
                 </div>
-                <form action="{% url 'country_edit' country.uuid %}" method="post" enctype="multipart/form-data">
+                <form action="{% url 'trip_edit' trip.uuid %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="row mb-4">
                         <div class="form-group col-12">
                             <label>Rasm</label>
-                            <input type="file" class="form-control", name="image">
+                            <input type="file" class="form-control" name="image">
                         </div>
                         <div class="form-group col-6">
                             <label>Inglizcha nomi</label>
-                            <input type="text" class="form-control" value="{{country.title_en}}" name="title_en">
+                            <input type="text" class="form-control" value="{{trip.title_en}}" name="title_en">
                         </div>
                         <div class="form-group col-6">
                             <label>Ruscha nomi</label>
-                            <input type="text" class="form-control" value="{{country.title_ru}}" name="title_ru">
+                            <input type="text" class="form-control" value="{{trip.title_ru}}" name="title_ru">
                         </div>
                         <div class="form-group col-6">
                             <label>Fransuzcha nomi</label>
-                            <input type="text" class="form-control" value="{{country.title_fr}}" name="title_fr">
+                            <input type="text" class="form-control" value="{{trip.title_fr}}" name="title_fr">
                         </div>
                         <div class="form-group col-6">
                             <label>Nemischa nomi</label>
-                            <input type="text" class="form-control" value="{{country.title_de}}" name="title_de">
+                            <input type="text" class="form-control" value="{{trip.title_de}}" name="title_de">
                         </div>
                         <div class="form-group col-6">
                             <label>Ispancha nomi</label>
-                            <input type="text" class="form-control" value="{{country.title_es}}" name="title_es">
+                            <input type="text" class="form-control" value="{{trip.title_es}}" name="title_es">
                         </div>
                         <div class="form-group col-6">
                             <label>Yaratilgan sana</label>
-                            <input type="text" class="form-control" value="country.created_at"readonly>
+                            <input type="text" class="form-control" value="{{trip.created_at | date:'Y-m-d'}}" readonly>
                         </div>
                         <div class="form-group col-6">
                             <label>Inglizcha tavsifi</label>
-                            <textarea class="summernote" name="description_en">{{country.description_en}}</textarea >
+                            <textarea class="summernote" name="subtitle_en">{{trip.subtitle_en}}</textarea >
                         </div>
                         <div class="form-group col-6">
                             <label>Ruscha tavsifi</label>
-                            <textarea class="summernote" name="description_ru">{{country.description_ru}}</textarea >
+                            <textarea class="summernote" name="subtitle_ru">{{trip.subtitle_ru}}</textarea >
                         </div>
                         <div class="form-group col-6">
                             <label>Fransuzcha tavsifi</label>
-                            <textarea class="summernote"name="description_fr">{{country.description_fr}}</textarea >
+                            <textarea class="summernote"name="subtitle_fr">{{trip.subtitle_fr}}</textarea >
                         </div>
                         <div class="form-group col-6">
                             <label>Nemischa tavsifi</label>
-                            <textarea class="summernote" name="description_de">{{country.description_de}}</textarea >
+                            <textarea class="summernote" name="subtitle_de">{{trip.subtitle_de}}</textarea >
                         </div>
                         <div class="form-group col-12">
                             <label>Ispancha tavsifi</label>
-                            <textarea class="summernote" name="description_es">{{country.description_es}}</textarea >
+                            <textarea class="summernote" name="subtitle_es">{{trip.subtitle_es}}</textarea >
                         </div>
                     </div>
                     <div class="text-right">

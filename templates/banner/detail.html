@@ -78,8 +78,57 @@
              
             </div>
           </div>
+          <div class="card">
+             <div class="card-header">
+                <h4>Kichik bannerlar ro'yxati</h4>
+                <div class="card-header-action">
+                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createModal">
+                    <i class="ion-plus"></i> Yaratish
+                </a>
+                </div>
+            </div>
+            <div class="card-body">
+                
+                <div class="row">
+                    {% for small_banner in small_banners %}
+                    <div class="col-md-3">
+                        <img src="{{small_banner.image.url}}" alt="image" width="200px" height="180px">
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+          </div>
     </div>
 </section>
+
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form action="{% url 'SmallBanner_create' banner.uuid %}" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Kichik banner yaratish</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Image</label>
+            <input type="file" name="image">
+          </div>
+          <div class="form-group">
+            <label>Inglizcha nom</label>
+            <input type="text" class="form-control" required name="title_en">
+          </div>
+        </div>
+        <div class="modal-footer bg-whitesmoke br">
+          <button type="submit" class="btn btn-primary"><i class="ion-plus"></i> Yaratish</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Yopish</button>
+        </div>
+    </form>
+  </div>
+</div>
 
 
 {% endblock content %}

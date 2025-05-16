@@ -13,8 +13,10 @@ def banner_list(request):
 
 def banner_detail(request, uuid):
     banner = models.Banner.objects.get(uuid=uuid)
+    small_banner = models.SmallBanner.objects.filter(banner = banner, is_active=True)
     context = {
-        'banner': banner
+        'banner': banner,
+        'small_banners':small_banner
     }
     return render(request, 'banner/detail.html', context)
 
@@ -78,3 +80,50 @@ def banner_create(request):
 
 
 
+
+def SmallBanner_create(request, uuid):
+    banner = models.Banner.objects.get(uuid=uuid)
+    if request.method == 'POST':
+        image = request.FILES.get('image')
+        title_en = request.POST.get('title_en')
+        
+        models.SmallBanner.objects.create(
+            banner = banner,
+            image=image,
+            title_en=title_en
+        )
+        return redirect('banner_detail', banner.uuid)
+
+
+
+
+def SmallBanner_edit(request, uuid):
+    SmallBanner = models.SmallBanner.objects.get(uuid=uuid)
+    if request.method == 'POST':
+        image = request.FILES.get('image')
+        title_en = request.POST.get('title_en')
+        title_ru = request.POST.get('title_ru')
+        title_fr = request.POST.get('title_fr')
+        title_de = request.POST.get('title_de')
+        title_es = request.POST.get('title_es')
+        
+        if image:
+            SmallBanner.image = image
+        SmallBanner.title_en = title_en
+        SmallBanner.title_ru = title_ru
+        SmallBanner.title_fr = title_fr
+        SmallBanner.title_de = title_de
+        SmallBanner.title_es = title_es
+        
+        SmallBanner.save()
+        return redirect('SmallBanner_detail', uuid=SmallBanner.uuid)
+
+
+
+
+def SmallBanner_delete(request, uuid):
+    SmallBanner = models.SmallBanner.objects.get(uuid=uuid)
+    if request.method == 'POST':
+        SmallBanner.is_active = False
+        SmallBanner.save()
+    return redirect('SmallBanner_list')
