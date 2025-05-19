@@ -207,7 +207,7 @@ class Testimionals(BaseModel):
 # Nuriniso start
 
 class Country(BaseModel):
-    image = models.ImageField(upload_to='countries')
+    image = models.ImageField(upload_to='countries', null=True, blank=True)
     
     title_en = models.CharField(max_length=255)
     title_ru = models.CharField(max_length=255,  null=True, blank=True)
@@ -220,7 +220,6 @@ class Country(BaseModel):
     description_fr = models.TextField(default='')
     description_de = models.TextField(default='')
     description_es = models.TextField(default='')
-
 
 class Locations(BaseModel):
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
@@ -270,7 +269,7 @@ class Trip(BaseModel):
 
 
 class TripDays(BaseModel):
-    trip = models.ForeignKey(Trip, on_delete=models.CASCADE)
+    trip = models.ForeignKey(Trip, on_delete=models.CASCADE, related_name='trip_day')
 
     title_en = models.CharField(max_length=255)
     title_ru = models.CharField(max_length=255,  null=True, blank=True)
@@ -289,6 +288,9 @@ class TripDays(BaseModel):
 
 class  Service(BaseModel):
     trip = models.ForeignKey(Trip, on_delete=models.SET_NULL,null=True,blank=True, related_name='service')
+
+    image = models.ImageField(upload_to='services')
+
     title_en = models.CharField(max_length=255)
     title_ru = models.CharField(max_length=255,  null=True, blank=True)
     title_fr = models.CharField(max_length=255,  null=True, blank=True)
@@ -302,7 +304,6 @@ class  Service(BaseModel):
     content_de = models.CharField(max_length=255, null=True, blank=True)
     content_es = models.CharField(max_length=255, null=True, blank=True)
 
-    order = models.PositiveIntegerField(default=0)
 
 
 class TripImages(BaseModel):

@@ -33,7 +33,11 @@
                     {% for country in countries %}
                   <tr>
                     <th scope="row">1</th>
-                    <td class="text-center"><img src="{{country.image.url}}" width="60px" height="30px" alt="rasm"></td>
+                    <td class="text-center">
+                      {% if country.image %}
+                        <img src="{{ country.image.url }}" width="60px" height="30px" alt="rasm">
+                      {% endif %}
+                    </td>
                     <td class="text-center">{{country.title_en}}</td>
                     <td class="text-center">
                         <a href="{% url 'country_detail' country.uuid %}" class="btn btn-warning"><i class="ion-android-create"></i></a>

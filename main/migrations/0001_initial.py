@@ -380,7 +380,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Service',
             fields=[
-                ('uuid', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
+                ('uuid', models.UUIDField(default=uuid.uuid4, editable=False, serialize=False)),
                 ('is_active', models.BooleanField(default=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
