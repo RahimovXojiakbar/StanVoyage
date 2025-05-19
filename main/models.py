@@ -60,15 +60,9 @@ class Banner(BaseModel):
 
 class SmallBanner(BaseModel):
     banner = models.ForeignKey(Banner, on_delete=models.CASCADE)
-
     image = models.ImageField(upload_to='small_banners')
-    
-    title_en = models.CharField(max_length=255)
-    title_ru = models.CharField(max_length=255, null=True, blank=True)
-    title_fr = models.CharField(max_length=255,  null=True, blank=True)
-    title_de = models.CharField(max_length=255,  null=True, blank=True)
-    title_es = models.CharField(max_length=255,  null=True, blank=True)
-
+    order = models.PositiveIntegerField(default=0)
+   
     
 
 

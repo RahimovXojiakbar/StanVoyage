@@ -85,14 +85,12 @@ def SmallBanner_create(request, uuid):
     banner = models.Banner.objects.get(uuid=uuid)
     if request.method == 'POST':
         image = request.FILES.get('image')
-        title_en = request.POST.get('title_en')
         
         models.SmallBanner.objects.create(
             banner = banner,
             image=image,
-            title_en=title_en
         )
-        return redirect('banner_detail', banner.uuid)
+        return redirect(request.META.get('HTTP_REFERER', '/'))
 
 
 
@@ -101,22 +99,12 @@ def SmallBanner_edit(request, uuid):
     SmallBanner = models.SmallBanner.objects.get(uuid=uuid)
     if request.method == 'POST':
         image = request.FILES.get('image')
-        title_en = request.POST.get('title_en')
-        title_ru = request.POST.get('title_ru')
-        title_fr = request.POST.get('title_fr')
-        title_de = request.POST.get('title_de')
-        title_es = request.POST.get('title_es')
         
         if image:
             SmallBanner.image = image
-        SmallBanner.title_en = title_en
-        SmallBanner.title_ru = title_ru
-        SmallBanner.title_fr = title_fr
-        SmallBanner.title_de = title_de
-        SmallBanner.title_es = title_es
         
         SmallBanner.save()
-        return redirect('SmallBanner_detail', uuid=SmallBanner.uuid)
+        return redirect(request.META.get('HTTP_REFERER', '/'))
 
 
 
@@ -126,4 +114,4 @@ def SmallBanner_delete(request, uuid):
     if request.method == 'POST':
         SmallBanner.is_active = False
         SmallBanner.save()
-    return redirect('SmallBanner_list')
+    return redirect(request.META.get('HTTP_REFERER', '/'))
