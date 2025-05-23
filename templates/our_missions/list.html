@@ -7,12 +7,12 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-primary text-white-all">
                 <li class="breadcrumb-item"><a href="#">Asosiy</a></li>
-                <li class="breadcrumb-item"><a href="{% url 'banner_list' %}">Bannerlar ro'yxati</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'ourmission_list' %}">Bizning vazifalar ro'yxati</a></li>
             </ol>
         </nav>
         <div class="card">
             <div class="card-header">
-                <h4>Banner ro'yxati</h4>
+                <h4>Bizning vazifalar ro'yxati</h4>
                 <div class="card-header-action">
                     <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#basicModal">
                         <i class="ion-plus"></i> Yaratish
@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="card-body">
-                {% if banners %}
+                {% if our_missions %}
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -31,13 +31,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for banner in banners %}
+                        {% for banner in our_missions %}
                         <tr>
                             <th scope="row">{{ forloop.counter }}</th>
                             <td class="text-center"><img src="{{ banner.image.url }}" width="60px" height="30px" alt="rasm"></td>
                             <td class="text-center">{{ banner.title_en }}</td>
                             <td class="text-center">
-                                <a href="{% url 'banner_detail' banner.uuid %}" class="btn btn-warning"><i class="ion-android-create"></i></a>
+                                <a href="{% url 'ourmission_detail' banner.uuid %}" class="btn btn-warning"><i class="ion-android-create"></i></a>
                                 <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{ banner.uuid }}"><i class="ion-android-delete"></i></a>
                             </td>
                         </tr>
@@ -58,18 +58,18 @@
 <!-- Create Modal -->
 <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <form action="{% url 'banner_create' %}" method="post" enctype="multipart/form-data">
+        <form action="{% url 'ourmission_create' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Banner yaratish</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Bizning vazifalar yaratish</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>Image</label>
+                        <label>Rasm</label>
                         <input type="file" class="form-control" required name="image">
                     </div>
                     <div class="form-group">
@@ -91,20 +91,20 @@
 </div>
 
 <!-- Delete Modal (Unique for each banner) -->
-{% for banner in banners %}
+{% for banner in our_missions %}
 <div class="modal fade" id="deleteModal{{ banner.uuid }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel{{ banner.uuid }}" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <form action="{% url 'banner_delete' banner.uuid %}" method="post">
+        <form action="{% url 'ourmission_delete' banner.uuid %}" method="post">
             {% csrf_token %}
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalLabel{{ banner.uuid }}">Banner</h5>
+                    <h5 class="modal-title" id="deleteModalLabel{{ banner.uuid }}">Bizning vazifalar</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h5>Banner o'chirilsinmi</h5>
+                    <h5>Bizning vazifalar o'chirilsinmi</h5>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-danger"><i class="ion-android-delete"></i> O'chirish</button>

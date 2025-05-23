@@ -84,22 +84,22 @@
               </a>
             </li>
             <li class="dropdown">
-              <a href="#" class="nav-link">
+              <a href="{% url 'about' %}" class="nav-link">
                 <i data-feather="info"></i><span>Biz haqimizda</span>
               </a>
             </li>
             <li class="dropdown">
-              <a href="#" class="nav-link">
+              <a href="{% url 'gallery_list' %}" class="nav-link">
                 <i data-feather="grid"></i><span>Galereya</span>
               </a>
             </li>
             <li class="dropdown">
-              <a href="#" class="nav-link">
+              <a href="{% url 'whyus' %}" class="nav-link">
                 <i data-feather="check-circle"></i><span>Nima uchun biz</span>
               </a>
             </li>
             <li class="dropdown">
-              <a href="#" class="nav-link">
+              <a href="{% url 'ourmission_list' %}" class="nav-link">
                 <i data-feather="target"></i><span>Bizning missiyamiz</span>
               </a>
             </li>
@@ -151,9 +151,10 @@
       
       <!-- Main Content -->
       <div class="main-content">
+        {% include 'message.html' %}
         {% block content %}
 
-
+        
         {% endblock content %}
       </div>
       <footer class="main-footer" >

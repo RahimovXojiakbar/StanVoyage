@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from main import models
+from django.contrib import messages
 
 
 def instructions_list(request):
@@ -49,6 +50,7 @@ def instructions_edit(request, uuid):
         instructions.content_es = description_es
         
         instructions.save()
+    messages.success(request, 'Korsatuvchi muvaffaqiyatli tahrirlandi!')
     return redirect('instructions_detail', instructions.uuid) 
 
 
@@ -58,6 +60,7 @@ def instructions_delete(request, uuid):
     if request.method == 'POST':
         instructions.is_active = False
         instructions.save()
+    messages.success(request, 'Korsatuvchi muvaffaqiyatli o\'chirildi!')
     return redirect('instructions_list')
 
 
@@ -73,4 +76,5 @@ def instructions_create(request):
             title_en=title_en,
             content_en=content_en
         )
+        messages.success(request, 'Korsatuvchi muvaffaqiyatli yaratildi!')
         return redirect('instructions_detail', new_instructions.uuid)

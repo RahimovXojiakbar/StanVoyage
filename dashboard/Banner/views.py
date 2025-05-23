@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from main import models
+from django.contrib import messages
 
 
 def banner_list(request):
@@ -51,6 +52,7 @@ def banner_edit(request, uuid):
         banner.description_es = description_es
         
         banner.save()
+    messages.success(request, 'Banner muvaffaqiyatl yangilandi!')
     return redirect('banner_detail', uuid=banner.uuid) 
 
 
@@ -60,6 +62,7 @@ def banner_delete(request, uuid):
     if request.method == 'POST':
         banner.is_active = False
         banner.save()
+    messages.success(request, 'Banner muvaffaqiyatli o\'chirildi!')
     return redirect('banner_list')
 
 
@@ -75,6 +78,7 @@ def banner_create(request):
             title_en=title_en,
             description_en=description_en
         )
+        messages.success(request, 'Banner muvaffaqiyatli yaratildi!')
         return redirect('banner_detail', uuid=new_banner.uuid)
 
 
