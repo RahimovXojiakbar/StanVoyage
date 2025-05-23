@@ -127,3 +127,5 @@ def SmallBanner_delete(request, uuid):
         SmallBanner.is_active = False
         SmallBanner.save()
     return redirect('SmallBanner_list')
+
+
