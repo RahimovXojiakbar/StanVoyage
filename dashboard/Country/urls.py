@@ -12,4 +12,9 @@ urlpatterns = [
     path('country/location/edit/<str:uuid>/', views.location_edit, name='location_edit'),
     path('country/location/delete/<str:uuid>/', views.location_delete, name='location_delete'),
     path('location/create/<uuid:uuid>/', views.location_create, name='location_create'),
+
+    path('location/image/create/<uuid:uuid>/', views.location_image_create, name='location_image_create'),
+    path('location/image/edit/<str:uuid>/', views.location_image_edit, name='location_image_edit'),
+    path('location/image/delete/<str:uuid>/', views.location_image_delete, name='location_image_delete')
+
 ]

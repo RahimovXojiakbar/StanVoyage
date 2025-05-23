@@ -22,15 +22,12 @@ class BaseModel(models.Model):
 class Social(BaseModel):
     instagram = models.CharField(max_length=255, null=True, blank=True)
     telegram = models.CharField(max_length=255, null=True, blank=True)
-    facebook = models.CharField(max_length=255, null=True, blank=True)
-    youtube = models.CharField(max_length=255, null=True, blank=True)
-    linkedin = models.CharField(max_length=255, null=True, blank=True)
+    gmail = models.EmailField(max_length=255, null=True, blank=True)
     whatsapp = models.CharField(max_length=255, null=True, blank=True)
 
 class Contact(BaseModel):
     fullname = models.CharField(max_length=255)
     phone = models.CharField(max_length=255, null=True, blank=True)
-    message = models.TextField(default='')
     is_read = models.BooleanField(default=False)
 
 class CompanyInfo(BaseModel):
@@ -59,6 +56,19 @@ class Banner(BaseModel):
     description_es = models.TextField(default='')
 
     order = models.PositiveIntegerField(default=0)
+
+
+class SmallBanner(BaseModel):
+    banner = models.ForeignKey(Banner, on_delete=models.CASCADE)
+
+    image = models.ImageField(upload_to='small_banners')
+    
+    title_en = models.CharField(max_length=255)
+    title_ru = models.CharField(max_length=255, null=True, blank=True)
+    title_fr = models.CharField(max_length=255,  null=True, blank=True)
+    title_de = models.CharField(max_length=255,  null=True, blank=True)
+    title_es = models.CharField(max_length=255,  null=True, blank=True)
+
     
 
 
@@ -127,6 +137,7 @@ class OurMission(BaseModel):
 
 
 class Instructions(BaseModel):
+    image = models.ImageField(upload_to='instructions/')
     title_en = models.CharField(max_length=255)
     title_ru = models.CharField(max_length=255,  null=True, blank=True)
     title_fr = models.CharField(max_length=255,  null=True, blank=True)
@@ -186,6 +197,12 @@ class Traditions(BaseModel):
     subtitle_de = models.CharField(max_length=255,  null=True, blank=True)
     subtitle_es = models.CharField(max_length=255,  null=True, blank=True) 
 
+    content_en = models.TextField()
+    content_ru = models.TextField(null=True, blank=True)
+    content_fr = models.TextField(null=True, blank=True)
+    content_de = models.TextField(null=True, blank=True)
+    content_es = models.TextField(null=True, blank=True)
+
     
 class Testimionals(BaseModel):
     author = models.CharField(max_length=255)
@@ -238,14 +255,14 @@ class Locations(BaseModel):
     description_de = models.TextField(default='')
     description_es = models.TextField(default='')
 
-
 class LocationImage(BaseModel):
     location = models.ForeignKey(Locations, on_delete=models.CASCADE, null=True, blank=True)
     image = models.ImageField(upload_to='location_images/')
 
-
 class Trip(BaseModel):
     image = models.ImageField(upload_to='trip_image')
+    
+    locations = models.CharField(max_length=255)
 
     title_en = models.CharField(max_length=255)
     title_ru = models.CharField(max_length=255,  null=True, blank=True)
@@ -267,7 +284,6 @@ class Trip(BaseModel):
 
     order = models.PositiveIntegerField(default=0)
 
-
 class TripDays(BaseModel):
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE, related_name='trip_day')
 
@@ -285,12 +301,10 @@ class TripDays(BaseModel):
 
     order = models.PositiveIntegerField(default=0)
 
-
-class  Service(BaseModel):
-    trip = models.ForeignKey(Trip, on_delete=models.SET_NULL,null=True,blank=True, related_name='service')
-
-    image = models.ImageField(upload_to='services')
-
+class Service(BaseModel):
+    image = models.ImageField(upload_to='service_images/')
+    trip = models.ForeignKey(Trip, on_delete=models.SET_NULL,null=True,blank=True, related_name='services')
+    
     title_en = models.CharField(max_length=255)
     title_ru = models.CharField(max_length=255,  null=True, blank=True)
     title_fr = models.CharField(max_length=255,  null=True, blank=True)
@@ -298,29 +312,23 @@ class  Service(BaseModel):
     title_es = models.CharField(max_length=255,  null=True, blank=True)
 
 
-    content_en = models.CharField(max_length=255)
-    content_ru = models.CharField(max_length=255, null=True, blank=True)
-    content_fr = models.CharField(max_length=255, null=True, blank=True)
-    content_de = models.CharField(max_length=255, null=True, blank=True)
-    content_es = models.CharField(max_length=255, null=True, blank=True)
-
-
+    content_en = models.TextField(max_length=255)
+    content_fr = models.TextField(max_length=255, null=True, blank=True)
+    content_de = models.TextField(max_length=255, null=True, blank=True)
+    content_ru = models.TextField(max_length=255, null=True, blank=True)
+    content_es = models.TextField(max_length=255, null=True, blank=True)
 
 class TripImages(BaseModel):
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE)
+    
     image = models.ImageField(upload_to='trip_images')
     order = models.PositiveIntegerField(default=0)
     
-
 class TripOrder(BaseModel):
     trip = models.ForeignKey(Trip, on_delete=models.SET_NULL, null=True, blank=True)
+    
     fullname = models.CharField(max_length=255)
     phone = models.CharField(max_length=255, null=True, blank=True)
-    message = models.TextField(default='')
     is_read = models.BooleanField(default=False)
 
-
 # Nuriniso end
-
-
-

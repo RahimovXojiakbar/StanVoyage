@@ -82,10 +82,14 @@ def country_create(request):
 
 def locations_detail(request, uuid):
     locations = models.Locations.objects.get(uuid=uuid)
+    location_images = models.LocationImage.objects.filter(location = locations, is_active=True)
 
     context = {
-        "locations":locations
+        "locations":locations,
+        "location_images":location_images
+
     }
+    
 
     return render(request, 'countries/location_detail.html', context)
 
@@ -142,19 +146,36 @@ def location_create(request, uuid):
         messages.success(request, "Joylashuv muvaffaqiyatli yaratildi")
         return redirect('location_detail', new_location.uuid)
     
+
+
+def location_image_create(request, uuid):
+    location = models.Locations.objects.get(uuid=uuid)
+    if request.method == 'POST':
+        image = request.FILES.get('image')
+        
+        new_location_image = models.LocationImage.objects.create(
+            location = location,
+            image=image
+        )
+        messages.success(request, 'Joylashuv rasmi muvaffaqiyatli yaratildi!')
+        return redirect(request.META.get('HTTP_REFERER'))
+
+def location_image_edit(request, uuid):
+    location_image = models.LocationImage.objects.get(uuid=uuid)
+    image = request.FILES.get('image')
     
+    if request.method == 'POST':
+        if image:
+            location_image.image = image
+        
+        location_image.save()
+        messages.success(request, 'Sayohat rasmi muvaffaqiyatli yangilandi!')
+        return redirect(request.META.get('HTTP_REFERER'))
 
-
-
-
-def location_images_list(request, uuid):
-    location_image = models.LocationImage.objects.filter(uuid=uuid)
-
-    context = {
-        "location_image":location_image
-    }
-
-    return render(request, "countries/location_image.html", context)
-
-def location_images_create(request, uuid):
-    location = models.location
+def location_image_delete(request, uuid):
+    location_image = models.LocationImage.objects.get(uuid=uuid)
+    if request.method == 'POST':
+        location_image.is_active = False
+        location_image.save()
+        messages.success(request, 'Sayohat rasmi muvaffaqiyatli o\'chirildi!')
+        return redirect(request.META.get('HTTP_REFERER'))
