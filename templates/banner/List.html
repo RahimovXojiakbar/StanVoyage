@@ -2,6 +2,14 @@
 {% block content %}
 {% load static %}
 
+
+<style>
+  table tr:hover{
+    cursor: move;
+  }
+</style>
+
+<meta name="csrf-token" content="{{ csrf_token }}">
 <section class="section">
     <div class="section-body">
         <nav aria-label="breadcrumb">
@@ -30,9 +38,9 @@
                             <th class="text-center">Harakatlar</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="banner-sortable">
                         {% for banner in banners %}
-                        <tr>
+                        <tr data-id="{{ banner.uuid }}">
                             <th scope="row">{{ forloop.counter }}</th>
                             <td class="text-center"><img src="{{ banner.image.url }}" width="60px" height="30px" alt="rasm"></td>
                             <td class="text-center">{{ banner.title_en }}</td>
@@ -115,5 +123,42 @@
     </div>
 </div>
 {% endfor %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    let sortable = new Sortable(document.getElementById('banner-sortable'), {
+        animation: 150,
+        delay: 200,
+        delayOnTouchOnly: true,
+        onEnd: function () {
+            let order = [];
+            document.querySelectorAll('#banner-sortable tr').forEach(function (el) {
+                order.push(el.getAttribute('data-id'));
+            });
+
+            fetch("{% url 'banner_reorder' %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': csrfToken
+                },
+                body: 'order=' + JSON.stringify(order)
+            }).then(response => {
+                if (!response.ok) throw new Error("Xatolik");
+                return response.json();
+            }).then(data => {
+                console.log("Yangi tartib saqlandi");
+            }).catch(err => {
+                alert("Xatolik yuz berdi");
+            });
+        }
+    });
+});
+</script>
 
 {% endblock content %}
