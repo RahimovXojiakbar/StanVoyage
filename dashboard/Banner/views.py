@@ -1,14 +1,25 @@
+import json
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from main import models
 from django.contrib import messages
 
 
 def banner_list(request):
-    banners = models.Banner.objects.filter(is_active=True)
+    banners = models.Banner.objects.filter(is_active=True).order_by('order')
     context = {
         'banners': banners
     }
     return render(request, 'banner/list.html', context)
+
+
+def banner_reorder(request):
+    if request.method == "POST":
+        order = json.loads(request.POST.get("order", "[]"))
+        for index, uuid in enumerate(order):
+            models.Banner.objects.filter(uuid=uuid).update(order=index)
+        return JsonResponse({"status": "ok"})
+    return JsonResponse({"status": "fail"}, status=400)
 
 
 

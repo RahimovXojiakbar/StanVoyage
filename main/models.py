@@ -8,14 +8,13 @@ class BaseModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+
     class Meta:
         abstract = True
-
 
 ########################################################
 # Social and Contact
 ########################################################
-
 
 # Odilbek start
 
@@ -34,11 +33,9 @@ class CompanyInfo(BaseModel):
     phone = models.CharField(max_length=255, null=True, blank=True)
     email = models.CharField(max_length=255, null=True, blank=True)
 
-
 ########################################################
 # About Us and Company Data
 ########################################################
-
 
 # Abdulloh start
 class Banner(BaseModel):
@@ -56,6 +53,9 @@ class Banner(BaseModel):
     description_es = models.TextField(default='')
 
     order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['order']
 
 
 class SmallBanner(BaseModel):
@@ -84,7 +84,6 @@ class AboutUs(BaseModel):
     description_de = models.TextField(default='', blank=True)
     description_es = models.TextField(default='', blank=True)
 
-
 class Gallery(BaseModel):
     image = models.ImageField(upload_to='galleries')
     title_en = models.CharField(max_length=255)
@@ -92,11 +91,6 @@ class Gallery(BaseModel):
     title_fr = models.CharField(max_length=255,  null=True, blank=True)
     title_de = models.CharField(max_length=255,  null=True, blank=True)
     title_es = models.CharField(max_length=255, null=True,  blank=True )
-
-    order = models.PositiveIntegerField(default=0)
-
-    class Meta:
-        ordering = ['order']
 
 
 
@@ -115,7 +109,6 @@ class WhyUs(BaseModel):
     content_de = models.TextField(null=True, blank=True)
     content_es = models.TextField(null=True, blank=True)
    
-    
 class OurMission(BaseModel):
     image = models.ImageField(upload_to='our_mission')
 
@@ -133,7 +126,6 @@ class OurMission(BaseModel):
 
     order = models.PositiveIntegerField(default=0)
 
-
 class Instructions(BaseModel):
     image = models.ImageField(upload_to='instructions/')
     title_en = models.CharField(max_length=255)
@@ -147,8 +139,8 @@ class Instructions(BaseModel):
     content_fr = models.CharField(max_length=255, null=True, blank=True)
     content_de = models.CharField(max_length=255, null=True, blank=True)
     content_es = models.CharField(max_length=255, null=True, blank=True)
-# Abdullh end
 
+# Abdulloh end
 
 class Blog(BaseModel):
     image = models.ImageField(upload_to='blogs')
@@ -165,22 +157,17 @@ class Blog(BaseModel):
     description_de = models.TextField(default='', blank=True, null=True)
     description_es = models.TextField(default='', blank=True, null=True)
 
-
 class BlogImage(BaseModel):
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='blog_image') 
     image = models.ImageField(upload_to='blog_image')
 
     order = models.PositiveIntegerField(default=0)
 
-
-
 class Comment(BaseModel):
     image = models.ImageField(upload_to='comments')
     fullname = models.CharField(max_length=255)
     text = models.TextField(default='')
     order = models.PositiveIntegerField(default=0)
-
-
 
 class Traditions(BaseModel):
     title_en = models.CharField(max_length=255)
@@ -201,7 +188,6 @@ class Traditions(BaseModel):
     content_de = models.TextField(null=True, blank=True)
     content_es = models.TextField(null=True, blank=True)
 
-    
 class Testimionals(BaseModel):
     author = models.CharField(max_length=255)
     content_en = models.CharField(max_length=255)
@@ -215,9 +201,6 @@ class Testimionals(BaseModel):
 ########################################################
 # Trip and Tour
 ########################################################
-
-
-
 
 # Nuriniso start
 

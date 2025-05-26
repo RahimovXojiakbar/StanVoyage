@@ -5,6 +5,7 @@ from . import views
 urlpatterns = [ 
     
     path('banner/list/',  views.banner_list, name='banner_list'),
+    path('banners/reorder/', views.banner_reorder, name='banner_reorder'),
     path('banner/detail/<str:uuid>/', views.banner_detail, name='banner_detail'),
     path('banner/edit/<str:uuid>/', views.banner_edit, name='banner_edit'),
     path('banner/delete/<str:uuid>/', views.banner_delete, name='banner_delete'),

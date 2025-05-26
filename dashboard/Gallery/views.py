@@ -40,10 +40,19 @@ def gallery_edit(request, uuid):
     if request.method == 'POST':
         image = request.FILES.get('image')
         title_en = request.POST.get('title_en')
+        title_ru = request.POST.get('title_ru')
+        title_fr = request.POST.get('title_fr')
+        title_de = request.POST.get('title_de')
+        title_es = request.POST.get('title_es')
+
         gallery = Gallery.objects.get(uuid=uuid)
         if image:
             gallery.image = image
         gallery.title_en = title_en
+        gallery.title_ru = title_ru
+        gallery.title_fr = title_fr
+        gallery.title_de = title_de
+        gallery.title_es = title_es
         gallery.save()
         messages.success(request, 'Galereya muvaffaqiyatl yangilandi!')
         return redirect('gallery_list')
