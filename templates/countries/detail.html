@@ -17,7 +17,7 @@
             </div>
             <div class="card-body">
                 <div class="d-flex justify-content-center mb-4">
-                    <img src="{{country.image.url}}" width="500px" height="300px" alt="rasm">
+                    <img src="{{ country.image.url }}" width="500px" height="300px" alt="rasm">
                 </div>
                 <form action="{% url 'country_edit' country.uuid %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
@@ -48,7 +48,7 @@
                         </div>
                         <div class="form-group col-6">
                             <label>Yaratilgan sana</label>
-                            <input type="text" class="form-control" value="country.created_at"readonly>
+                            <input type="text" class="form-control" value="{{country.created_at | date:'Y-m-d'}}" name="created_at" readonly>
                         </div>
                         <div class="form-group col-6">
                             <label>Inglizcha tavsifi</label>
@@ -72,13 +72,120 @@
                         </div>
                     </div>
                     <div class="text-right">
-                    <button type="submit" class="btn btn-primary text-right"><i class="ion-android-cloud-done"></i>Saqlash</button>
+                    <button type="submit" class="btn btn-primary text-right"><i class="ion-android-cloud-done"></i> Saqlash</button>
                     </div>
                 </form>
             </div>
           </div>
+          <div class="card">
+            <div class="card-header">
+                <h4>Joylashuvlar ro'yxati</h4>
+                <div class="card-header-action">
+                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createLocationModal">
+                    <i class="ion-plus"></i> Yaratish
+                </a>
+                </div>
+            </div>
+            <div class="card-body">
+              {% if locations %}
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th class="text-center">Rasm</th>
+                    <th class="text-center">Inglizcha nomi</th>
+                    <th class="text-center">Harakatlar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for location in locations %}
+                  <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td class="text-center"><img src="{{location.image.url}}" width="60px" height="30px" alt="rasm"></td>
+                    <td class="text-center">{{location.title_en}}</td>
+                    <td class="text-center">
+                        <a href="{% url 'location_detail' location.uuid %}" class="btn btn-warning"><i class="ion-android-create"></i></a>
+                        <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal-{{location.uuid}}"><i class="ion-android-delete"></i></a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="d-flex justify-content-center align-items-center flex-column">
+              <img src="{% static 'img/image.png' %}" alt="" style="width: 50%; height: 50%; object-fit: cover;">
+              <h5 class="pb-4">Ma'lumot topilmadi</h5>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+
+
     </div>
 </section>
 
+<div class="modal fade" id="createLocationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Joylashuv yaratish</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="{% url 'location_create' country.uuid %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="modal-body">
+                <div class="form-group">
+                  <label>Image</label>
+                  <input type="file" class="form-control" name="image">
+                </div>
+                <div class="form-group">
+                  <label>Inglizcha nomi</label>
+                  <input type="text" class="form-control" name="title_en">
+                </div>
+                <div class="form-group">
+                    <label>Inglizcha tavsifi</label>
+                    <textarea class="summernote" name="description_en"></textarea>
+                </div>
+              </div>
+              <div class="modal-footer bg-whitesmoke br">
+                <button type="submit" class="btn btn-primary"><i class="ion-plus"></i>Yaratish</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Yopish</button>
+              </div>
+        </form>
+        
+      </div>
+    </div>
+  </div>
+  
+  {% for location in locations %}
+  <form method="post" action="{% url 'location_delete' location.uuid %}">
+  {% csrf_token %}
+  <div class="modal fade" id="deleteModal-{{location.uuid}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Joylashuv</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h5>Joylashuv o'chirilsinmi?</h5>
+        </div>
+        <div class="modal-footer bg-whitesmoke br">
+          <button type="submit" class="btn btn-danger"><i class="ion-android-delete"></i> O'chirish</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Yopish</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </form>
+  {% endfor %}
+
+
+
 
 {% endblock content %}
+
