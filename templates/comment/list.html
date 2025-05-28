@@ -6,7 +6,7 @@
     table tr:hover{
       cursor: move;
     }
-  </style>
+</style>
   
 <section class="section">
     <div class="section-body">
@@ -41,7 +41,7 @@
                     <tr data-id="{{comment.uuid}}">
                       <th scope="row" class="text-center">{{ forloop.counter }}</th>
                       <td class="text-center">
-                          <img src="{{ comment.image.url }}" width="60px" height="60px" alt="rasm" style="border-radius: 50%; object-fit: cover; margin: 6px;">
+                          <img src="{{ comment.image.url }}" alt="rasm" style="border-radius: 50%; object-fit: cover; margin: 6px; width: 50px !important; height: 50px !important;">
                       </td>                      
                       <td class="text-center">{{ comment.fullname }}</td>
                       <td class="text-center">

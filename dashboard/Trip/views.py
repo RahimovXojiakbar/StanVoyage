@@ -5,6 +5,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
+
 
 @csrf_exempt
 def trip_reorder(request):
@@ -15,6 +17,7 @@ def trip_reorder(request):
         return JsonResponse({"status": "ok"})
     return JsonResponse({"status": "fail"}, status=400)
 
+@login_required(login_url='login')
 def trip_list(request):
     trips = models.Trip.objects.filter(is_active=True).order_by('order')
 
@@ -24,6 +27,7 @@ def trip_list(request):
 
     return render(request, 'trips/list.html', context)
 
+@login_required(login_url='login')
 def trip_detail(request, uuid):
     trip = models.Trip.objects.get(uuid=uuid)
     trip_images = models.TripImages.objects.filter(trip=trip, is_active=True)
@@ -38,6 +42,7 @@ def trip_detail(request, uuid):
     }
     return render(request, 'trips/detail.html', context)
 
+@login_required(login_url='login')
 def trip_edit(request, uuid):
     trip = models.Trip.objects.get(uuid=uuid)
 
@@ -71,6 +76,7 @@ def trip_edit(request, uuid):
         messages.success(request, "Sayohat muvaffaqiyatli yangilandi")
         return redirect('trip_detail', trip.uuid)
 
+@login_required(login_url='login')
 def trip_delete(request, uuid):
     trip = models.Trip.objects.get(uuid=uuid)
     if request.method == 'POST':
@@ -79,6 +85,7 @@ def trip_delete(request, uuid):
         messages.success(request, "Sayohat muvaffaqiyatli o'chirildi")
         return redirect('trip_list')
 
+@login_required(login_url='login')
 def trip_create(request):
     if request.method == 'POST':
         image = request.FILES.get('image')
@@ -94,6 +101,8 @@ def trip_create(request):
         return redirect('trip_detail', new_trip.uuid)
 
 
+
+@login_required(login_url='login')
 def service_detail(request, uuid):
     service = models.Service.objects.get(uuid=uuid)
     trip = service.trip
@@ -104,6 +113,7 @@ def service_detail(request, uuid):
     }
     return render(request, 'trips/service_detail.html', context)
 
+@login_required(login_url='login')
 def service_create(request, uuid):
     trip = models.Trip.objects.get(uuid=uuid)
     if request.method == 'POST':
@@ -116,6 +126,7 @@ def service_create(request, uuid):
         messages.success(request, 'Xizmat muvaffaqiyatli yaratildi!')
         return redirect('service_detail', new_serivice.uuid)
     
+@login_required(login_url='login')
 def service_update(request, uuid):
     service = models.Service.objects.get(uuid=uuid)
     
@@ -140,6 +151,7 @@ def service_update(request, uuid):
         messages.success(request, 'Xizmat muvaffaqiyatli yangilandi!')
         return redirect('service_detail', service.uuid)
   
+@login_required(login_url='login')
 def service_delete(request, uuid):
     service = models.Service.objects.get(uuid=uuid)
     if request.method == 'POST':
@@ -149,6 +161,8 @@ def service_delete(request, uuid):
         return redirect(request.META.get('HTTP_REFERER'))
     
 
+
+@login_required(login_url='login')
 def trip_days_detail(request, uuid):
     trip_days = models.TripDays.objects.get(uuid=uuid)
     trip = trip_days.trip
@@ -159,6 +173,7 @@ def trip_days_detail(request, uuid):
     }
     return render(request, 'trips/trip_days.html', context)
 
+@login_required(login_url='login')
 def trip_days_create(request, uuid):
     trip = models.Trip.objects.get(uuid=uuid)
     if request.method == 'POST':
@@ -170,6 +185,7 @@ def trip_days_create(request, uuid):
         messages.success(request, 'Sayohat kuni muvaffaqiyatli yaratildi!')
         return redirect('trip_days_detail', new_trip_day.uuid)
 
+@login_required(login_url='login')
 def trip_days_update(request, uuid):
     trip_days = models.TripDays.objects.get(uuid=uuid)
 
@@ -190,6 +206,7 @@ def trip_days_update(request, uuid):
         messages.success(request, 'Sayohat kuni muvaffaqiyatli yangilandi')
         return redirect('trip_days_detail', trip_days.uuid)
     
+@login_required(login_url='login')
 def trip_days_delete(request, uuid):
     trip_days = models.TripDays.objects.get(uuid=uuid)
     if request.method == 'POST':
@@ -199,6 +216,8 @@ def trip_days_delete(request, uuid):
         return redirect(request.META.get('HTTP_REFERER'))
 
 
+
+@login_required(login_url='login')
 def trip_images_create(request, uuid):
     trip = models.Trip.objects.get(uuid=uuid)
     if request.method == 'POST':
@@ -209,6 +228,7 @@ def trip_images_create(request, uuid):
         messages.success(request, 'Sayohat rasmi muvaffaqiyatli yaratildi!')
         return redirect(request.META.get('HTTP_REFERER'))
     
+@login_required(login_url='login')
 def trip_images_update(request, uuid):
     trip_images = models.TripImages.objects.get(uuid=uuid)
     image = request.FILES.get('image')
@@ -221,6 +241,7 @@ def trip_images_update(request, uuid):
             messages.success(request, 'Sayohat rasmi muvaffaqiyatli yangilandi!')
             return redirect(request.META.get('HTTP_REFERER'))
         
+@login_required(login_url='login')
 def trip_images_delete(request, uuid):
     trip_images = models.TripImages.objects.get(uuid=uuid)
     if request.method == 'POST':
@@ -231,6 +252,7 @@ def trip_images_delete(request, uuid):
     
 
 
+@login_required(login_url='login')
 def trip_order_list(request):
     trip_orders = models.TripOrder.objects.filter(is_active=True)
 
@@ -239,6 +261,7 @@ def trip_order_list(request):
     }
     return render(request, 'trips/trip_orders.html', context)
 
+@login_required(login_url='login')
 def mark_as_read(request, pk):
     if request.method == 'POST':
         order = models.TripOrder.objects.filter(uuid=pk).first()

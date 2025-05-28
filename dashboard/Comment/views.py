@@ -3,6 +3,7 @@ from main import models
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 import json
 
 @csrf_exempt
@@ -14,6 +15,7 @@ def comment_reorder(request):
         return JsonResponse({"status": "ok"})
     return JsonResponse({"status": "fail"}, status=400)
 
+@login_required(login_url='login')
 def comment_list(request):
     comments = models.Comment.objects.filter(is_active=True).order_by('order')
 
@@ -22,6 +24,7 @@ def comment_list(request):
     }
     return render(request, "comment/list.html", context)
 
+@login_required(login_url='login')
 def comment_detail(request, uuid):
     comment = models.Comment.objects.get(uuid=uuid)
 
@@ -30,6 +33,7 @@ def comment_detail(request, uuid):
     }
     return render(request, 'comment\detail.html', context)
 
+@login_required(login_url='login')
 def comment_create(request):
     if request.method == 'POST':
         image = request.FILES.get('image')
@@ -44,6 +48,7 @@ def comment_create(request):
         messages.success(request, 'Izox muvaffaqiyatli yaratildi!')
         return redirect('comment_detail', new_comment.uuid)
 
+@login_required(login_url='login')
 def comment_update(request, uuid):
     comment = models.Comment.objects.get(uuid=uuid)
 
@@ -62,6 +67,7 @@ def comment_update(request, uuid):
         return redirect('comment_detail', comment.uuid)
     return render(request, 'comment/detail.html', {'comment': comment})
 
+@login_required(login_url='login')
 def comment_delete(request, uuid):
     comment = models.Comment.objects.get(uuid=uuid)
 
@@ -70,4 +76,3 @@ def comment_delete(request, uuid):
         comment.save()
         messages.success(request, "Izox muvaffaqiyatli o\'chirildi!")
         return redirect('comment_list')
-    

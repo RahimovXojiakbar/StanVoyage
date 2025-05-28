@@ -17,7 +17,7 @@
             </div>
             <div class="card-body">
                 <div class="d-flex justify-content-center mb-4">
-                    <img src="{{ comment.image.url }}" width="60px" height="60px" alt="rasm" style="border-radius: 50%; object-fit: cover;">
+                    <img src="{{ comment.image.url }}" width="110px" height="110px" alt="rasm" style="border-radius: 50%; object-fit: cover;">
                 </div>
                 <form action="{% url 'comment_update' comment.uuid %}" method="post" enctype="multipart/form-data"> 
                     {% csrf_token %}
@@ -34,7 +34,7 @@
                             <label>Yaratilgan sana</label>
                             <input type="text" class="form-control" value="{{comment.created_at | date:'Y-m-d'}}" readonly>
                         </div>
-                        <div class="form-group col-6">
+                        <div class="form-group col-12">
                             <label>Izox</label>
                             <textarea class="summernote" name="text">{{ comment.text }}</textarea >
                         </div>

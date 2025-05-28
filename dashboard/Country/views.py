@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from main import models
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
-
+@login_required(login_url='login')
 def country_list(request):
     countries = models.Country.objects.filter(is_active=True)
 
@@ -12,6 +13,7 @@ def country_list(request):
 
     return render(request, 'countries/list.html', context)
 
+@login_required(login_url='login')
 def country_detail(request, uuid):
     country = models.Country.objects.get(uuid=uuid)
     locations = models.Locations.objects.filter(country = country, is_active=True)
@@ -23,6 +25,7 @@ def country_detail(request, uuid):
 
     return render(request, 'countries/detail.html', context)
 
+@login_required(login_url='login')
 def country_edit(request, uuid):
     country = models.Country.objects.get(uuid=uuid)
 
@@ -56,6 +59,7 @@ def country_edit(request, uuid):
         messages.success(request, 'Davlat muvaffaqiyatli yangilandi')
         return redirect('country_detail', country.uuid)
 
+@login_required(login_url='login')
 def country_delete(request, uuid):
     country = models.Country.objects.get(uuid=uuid)
     if request.method == 'POST':
@@ -64,6 +68,7 @@ def country_delete(request, uuid):
         messages.success(request, "Davlat muvaffaqiyatli o'chirildi")
         return redirect('country_list')
 
+@login_required(login_url='login')
 def country_create(request):
     if request.method == 'POST':
         image = request.FILES.get('image')
@@ -79,7 +84,7 @@ def country_create(request):
         return redirect('country_detail', new_country.uuid)
 
 
-
+@login_required(login_url='login')
 def locations_detail(request, uuid):
     locations = models.Locations.objects.get(uuid=uuid)
     location_images = models.LocationImage.objects.filter(location = locations, is_active=True)
@@ -93,6 +98,7 @@ def locations_detail(request, uuid):
 
     return render(request, 'countries/location_detail.html', context)
 
+@login_required(login_url='login')
 def location_edit(request, uuid):
         location = models.Locations.objects.get(uuid=uuid)
 
@@ -126,6 +132,7 @@ def location_edit(request, uuid):
             messages.success(request, 'Joylashuv muvaffaqiyatli yangilandi')
             return redirect('location_detail', location.uuid)
 
+@login_required(login_url='login')
 def location_delete(request, uuid):
     location = models.Locations.objects.get(uuid=uuid)
     if request.method == 'POST':
@@ -134,6 +141,7 @@ def location_delete(request, uuid):
         messages.success(request, 'Joylashuv muvaffaqiyatli o\'chirildi')
         return redirect('country_detail', uuid=location.country.uuid)
         
+@login_required(login_url='login')
 def location_create(request, uuid):
     country = models.Country.objects.get(uuid=uuid)
     if request.method == 'POST':
@@ -146,8 +154,7 @@ def location_create(request, uuid):
         messages.success(request, "Joylashuv muvaffaqiyatli yaratildi")
         return redirect('location_detail', new_location.uuid)
     
-
-
+@login_required(login_url='login')
 def location_image_create(request, uuid):
     location = models.Locations.objects.get(uuid=uuid)
     if request.method == 'POST':
@@ -160,6 +167,7 @@ def location_image_create(request, uuid):
         messages.success(request, 'Joylashuv rasmi muvaffaqiyatli yaratildi!')
         return redirect(request.META.get('HTTP_REFERER'))
 
+@login_required(login_url='login')
 def location_image_edit(request, uuid):
     location_image = models.LocationImage.objects.get(uuid=uuid)
     image = request.FILES.get('image')
@@ -172,6 +180,7 @@ def location_image_edit(request, uuid):
         messages.success(request, 'Sayohat rasmi muvaffaqiyatli yangilandi!')
         return redirect(request.META.get('HTTP_REFERER'))
 
+@login_required(login_url='login')
 def location_image_delete(request, uuid):
     location_image = models.LocationImage.objects.get(uuid=uuid)
     if request.method == 'POST':

@@ -141,6 +141,7 @@
                         }
                     }
                 </style>
+                {% if small_banners %}
                 <div class="row card-row" id="bannerRow">
                     {% for small_banner in small_banners %}
                     <div class="col-md-3">
@@ -212,7 +213,12 @@
                         </div>
                     {% endfor %}
                 </div>
-
+                {% else %}
+                <div class="d-flex justify-content-center align-items-center flex-column">
+                <img src="{% static 'img/image.png' %}" alt="" style="width: 50%; height: 50%; object-fit: cover;">
+                <h5 class="pb-4">Malumot topilmadi</h5>
+                </div>
+                {% endif %}
                 <!-- Create Modal -->
                 <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
