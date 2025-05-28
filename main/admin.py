@@ -11,7 +11,7 @@ admin.site.register(models.Service)
 admin.site.register(models.TripImages)
 admin.site.register(models.TripOrder)
 admin.site.register(models.Blog)
-
+admin.site.register(models.Social)
 
 admin.site.register(models.Banner)
 admin.site.register(models.Gallery)
