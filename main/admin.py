@@ -20,7 +20,7 @@ admin.site.register(models.WhyUs)
 admin.site.register(models.OurMission)
 admin.site.register(models.Instructions)
 
-
+admin.site.register(models.Comment)
 
 
 

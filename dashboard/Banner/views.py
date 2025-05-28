@@ -129,4 +129,6 @@ def SmallBanner_delete(request, uuid):
     if request.method == 'POST':
         SmallBanner.is_active = False
         SmallBanner.save()
-    return redirect(request.META.get('HTTP_REFERER', '/'))
+    return redirect('SmallBanner_list')
+
+

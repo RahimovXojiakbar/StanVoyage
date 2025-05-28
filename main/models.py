@@ -1,5 +1,6 @@
 from django.db import models
 from uuid import uuid4
+ 
 
 class BaseModel(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid4, editable=False)
@@ -56,12 +57,16 @@ class Banner(BaseModel):
     class Meta:
         ordering = ['order']
 
-
 class SmallBanner(BaseModel):
     banner = models.ForeignKey(Banner, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='small_banners')
-    order = models.PositiveIntegerField(default=0)
-   
+
+    title_en = models.CharField(max_length=255)
+    title_ru = models.CharField(max_length=255, null=True, blank=True)
+    title_fr = models.CharField(max_length=255,  null=True, blank=True)
+    title_de = models.CharField(max_length=255,  null=True, blank=True)
+    title_es = models.CharField(max_length=255,  null=True, blank=True)
+ 
 class AboutUs(BaseModel):
     image = models.ImageField(upload_to='about_us')
     title_en = models.CharField(max_length=255)
@@ -83,8 +88,6 @@ class Gallery(BaseModel):
     title_fr = models.CharField(max_length=255,  null=True, blank=True)
     title_de = models.CharField(max_length=255,  null=True, blank=True)
     title_es = models.CharField(max_length=255, null=True,  blank=True )
-
-
 
 class WhyUs(BaseModel):
     image = models.ImageField(upload_to='why_us')
@@ -299,7 +302,6 @@ class TripImages(BaseModel):
     
 class TripOrder(BaseModel):
     trip = models.ForeignKey(Trip, on_delete=models.SET_NULL, null=True, blank=True)
-    
     fullname = models.CharField(max_length=255)
     phone = models.CharField(max_length=255, null=True, blank=True)
     is_read = models.BooleanField(default=False)
