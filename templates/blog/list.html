@@ -33,7 +33,7 @@
                   {% for blog in blogs %}
                   <tr>
                     <th scope="row">1</th>
-                    <td class="text-center"><img src="{{blog.image.url}}" width="60px" height="30px" alt="rasm"></td>
+                    <td class="text-center"><img src="{{blog.image.url}}" alt="rasm"></td>
                     <td class="text-center">{{blog.title_en}}</td>
                     <td class="text-center">
                         <a href="{% url 'blog_detail' blog.uuid %}" class="btn btn-warning"><i class="ion-android-create"></i></a>

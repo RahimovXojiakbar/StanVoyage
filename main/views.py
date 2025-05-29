@@ -11,4 +11,4 @@ def list(request):
 def detail(request):
     return render(request, 'detail_page.html')
 
-
+    
