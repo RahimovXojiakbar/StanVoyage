@@ -35,7 +35,7 @@
                 <td class="text-center">
                   <form method="post" action="{% url 'mark_as_read' user.uuid %}">
                     {% csrf_token %}
-                    <input type="checkbox" name="is_read" onchange="this.form.submit()" {% if order.is_read %}checked{% endif %}>
+                    <input type="checkbox" name="is_read" onchange="this.form.submit()" {% if user.is_read %}checked{% endif %}>
                   </form>
                 </td>
               </tr>
