@@ -13,6 +13,7 @@ admin.site.register(models.TripOrder)
 admin.site.register(models.Blog)
 admin.site.register(models.Social)
 admin.site.register(models.CompanyInfo)
+admin.site.register(models.Contact)
 
 admin.site.register(models.Banner)
 admin.site.register(models.Gallery)

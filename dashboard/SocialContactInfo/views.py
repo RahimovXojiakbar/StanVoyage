@@ -96,3 +96,22 @@ def company_info_edit(request, uuid):
         company_info.save()
         messages.success(request, 'ijtimoi tarmoq muvaffaqiyatli yangilandi!')
         return redirect('company_info')
+
+
+@login_required(login_url='login')
+def contact_list(request):
+    contact = models.Contact.objects.filter(is_active=True)
+
+    context = {
+        "contact":contact
+    }
+    return render(request, 'social_contact_info/contact.html', context)
+
+@login_required(login_url='login')
+def mark_as_read(request, pk):
+    if request.method == 'POST':
+        contact = models.Contact.objects.filter(uuid=pk).first()
+        if contact:
+            contact.is_read = True
+            contact.save()
+    return redirect(request.META.get('HTTP_REFERER'))

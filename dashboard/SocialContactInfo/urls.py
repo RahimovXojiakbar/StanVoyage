@@ -11,4 +11,8 @@ urlpatterns = [
     path('company-info/edit/<str:uuid>/', views.company_info_edit, name='company_info_edit'),
     path('company-info/create/', views.company_info_create, name='company_info_create'),
 
+    path('contact/list/', views.contact_list, name='contact_list'),
+    path('contact/read/<uuid:pk>/', views.mark_as_read, name='mark_as_read'),
+
+
 ]
