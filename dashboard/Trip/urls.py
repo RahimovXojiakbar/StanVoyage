@@ -24,5 +24,5 @@ urlpatterns = [
     path('trip/trip/images/delete/<str:uuid>/', views.trip_images_delete, name='trip_images_delete'),
 
     path('trip/orders/', views.trip_order_list, name='trip_order_list'),
-    path('trip/orders/read/<uuid:pk>/', views.mark_as_read, name='mark_as_read'),
+    path('trip/orders/read/<uuid:uuid>/', views.mark_as_read, name='mark_as_read'),
 ]

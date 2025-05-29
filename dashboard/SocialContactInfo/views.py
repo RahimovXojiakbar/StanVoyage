@@ -108,10 +108,13 @@ def contact_list(request):
     return render(request, 'social_contact_info/contact.html', context)
 
 @login_required(login_url='login')
-def mark_as_read(request, pk):
+def toggle_active(request, uuid):
     if request.method == 'POST':
-        contact = models.Contact.objects.filter(uuid=pk).first()
-        if contact:
-            contact.is_read = True
+        try:
+            contact = models.Contact.objects.get(uuid=uuid)
+            is_read = request.POST.get('is_read') == 'on'
+            contact.is_read = is_read
             contact.save()
-    return redirect(request.META.get('HTTP_REFERER'))
+        except models.Contact.DoesNotExist:
+            pass  # Optionally handle missing contact
+    return redirect(request.META.get('HTTP_REFERER', 'list_page')) # Fallback to a default URL if HTTP_REFERER is missing  

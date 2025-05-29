@@ -262,10 +262,13 @@ def trip_order_list(request):
     return render(request, 'trips/trip_orders.html', context)
 
 @login_required(login_url='login')
-def mark_as_read(request, pk):
+def mark_as_read(request, uuid):
     if request.method == 'POST':
-        order = models.TripOrder.objects.filter(uuid=pk).first()
-        if order:
-            order.is_read = True
-            order.save()
-    return redirect(request.META.get('HTTP_REFERER'))
+        try:
+            trip_order = models.TripOrder.objects.get(uuid=uuid)
+            is_read = request.POST.get('is_read') == 'on'
+            trip_order.is_read = is_read
+            trip_order.save()
+        except models.TripOrder.DoesNotExist:
+            pass  # Optionally handle missing contact
+    return redirect(request.META.get('HTTP_REFERER', 'list_page')) 

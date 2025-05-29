@@ -6,7 +6,7 @@
   <div class="section-body">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-primary text-white-all">
-            <li class="breadcrumb-item"><a href="#">Asosiy</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'list_page' %}"></i> Asosiy</a></li>
             <li class="breadcrumb-item"><a href="#">Buyurtmalar ro'yxati</a></li>
         </ol>
     </nav>
@@ -27,19 +27,17 @@
         </thead>
         <tbody>
           {% for order in trip_orders %}
-            {% if order.is_active %}
               <tr>
                 <td class="text-center">{{ forloop.counter }}</td>
                 <td class="text-center">{{ order.fullname }}</td>
                 <td class="text-center">{{ order.phone }}</td>
                 <td class="text-center">
                   <form method="post" action="{% url 'mark_as_read' order.uuid %}">
-                    {% csrf_token %}
-                    <input type="checkbox" name="is_read" onchange="this.form.submit()" {% if order.is_read %}checked{% endif %}>
+                        {% csrf_token %}
+                        <input type="checkbox" name="is_read" onchange="this.form.submit()" {% if order.is_read %}checked{% endif %}>
                   </form>
                 </td>
               </tr>
-            {% endif %}
           {% endfor %}
         </tbody>
       </table>
