@@ -8,11 +8,11 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-primary text-white-all">
                 <li class="breadcrumb-item"><a href="#">Asosiy</a></li>
-                <li class="breadcrumb-item"><a href="#">Ijtimoiy tarmoqlar va kompaniya ma'lumotlari</a></li>
+                <li class="breadcrumb-item"><a href="#">Ijtimoiy tarmoqlar</a></li>
             </ol>
         </nav>
         <div class="card">
-            {% if about %}
+            {% if social %}
             
                 <div class="card-header">
                         <h4>Ijtimoiy tarmoqlar</h4>
@@ -29,7 +29,7 @@
                            
                             <div class="form-group col-6">
                                 <label>Instagram</label>
-                                <input type="text" class="form-control" name="Instagram" value="{{ social.Instagram }}" required>
+                                <input type="text" class="form-control" name="Instagram" value="{{ social.instagram }}" required>
                             </div>
                             <div class="form-group col-6">
                                 <label>Telegram</label>
@@ -84,24 +84,25 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group col-6">
-                        <div>
+                    <div class="row">
+                        <div class="col-12">
                             <label>Instagram</label>
-                            <input type="text" class="form-control" name="Instagram" value="{{ social.Instagram }}" required>
-                        </div>
-                        <div class="form-group col-6">
+                            <input type="text" class="form-control" name="instagram"  required>
+                        </div><br>
+                        <div class="col-12">
                             <label>Telegram</label>
-                            <input type="text" class="form-control" name="telegram" value="{{ social.telegram }}" required>
-                        </div>
-                        <div class="form-group col-6">
+                            <input type="text" class="form-control" name="telegram" required>
+                        </div><br>
+                        <div class="col-12">
                             <label>Whatsapp</label>
-                            <input type="text" class="form-control" name="whatsapp" value="{{ social.whatsapp }}" required>
-                        </div>
-                        <div class="form-group col-6">
+                            <input type="text" class="form-control" name="whatsapp"  required>
+                        </div><br>
+                        <div class="col-12">
                             <label>Gmail</label>
-                            <input type="email" class="form-control" name="gmail" value="{{ social.gmail }}" required>
+                            <input type="email" class="form-control" name="gmail"  required>
                         </div>
                     </div>
+                    
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary"><i class="ion-plus"></i> Yaratish</button>

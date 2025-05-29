@@ -9,12 +9,12 @@ def social(request):
     context = {
         'social': social
     }
-    return render(request, 'social_contact_info/social_info.html', context)
+    return render(request, 'social_contact_info/social.html', context)
 
 @login_required(login_url='login')
 def social_create(request):
     if request.method == 'POST':
-        instagram = request.POST.get('intsagram')
+        instagram = request.POST.get('instagram')
         telegram = request.POST.get('telegram')
         whatsapp = request.POST.get('whatsapp')
         gmail = request.POST.get('gmail')
@@ -31,7 +31,6 @@ def social_create(request):
 @login_required(login_url='login')
 def social_edit(request, uuid):
     social = models.Social.objects.get(uuid=uuid)
-
     if request.method == 'POST':
         # Update only provided fields
         instagram = request.POST.get('intsagram')
@@ -61,7 +60,7 @@ def company_info(request):
     context = {
         'company_info': company_info
     }
-    return render(request, 'social_contact_info/social_info.html', context)
+    return render(request, 'social_contact_info/company_info.html', context)
 
 
 

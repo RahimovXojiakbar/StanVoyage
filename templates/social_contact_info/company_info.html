@@ -8,14 +8,14 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-primary text-white-all">
                 <li class="breadcrumb-item"><a href="#">Asosiy</a></li>
-                <li class="breadcrumb-item"><a href="#">Ijtimoiy tarmoqlar va kompaniya ma'lumotlari</a></li>
+                <li class="breadcrumb-item"><a href="#">Bog'lanish</a></li>
             </ol>
         </nav>
         <div class="card">
-            {% if about %}
+            {% if company_info %}
             
                 <div class="card-header">
-                        <h4>Kompaniya malumoti</h4>
+                        <h4>Bog'lanish</h4>
                         
                     </div>
                 
@@ -23,7 +23,7 @@
 
                 <div class="card-body">
                     
-                    <form action="{% url 'company_info_edit' company_info.uuid %}" method="post" enctype="multipart/form-data">
+                    <form action="{% url 'company_info_edit' company_info.uuid %}" method="post">
                         {% csrf_token %}
                         <div class="row mb-4">
                            
@@ -46,9 +46,9 @@
 
             {% else %}
             <div class="card-header">
-                        <h4>Kompaniya malumoti</h4>
+                        <h4>Bog'lanish</h4>
                         <div class="card-header-action">
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#createModal">
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#createModal2">
                                 <i class="ion-plus"></i> Yaratish
                             </button>
                         </div>
@@ -64,13 +64,13 @@
     </div>
 </section>
 
-<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+<div class="modal fade" id="createModal2" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <form action="{% url 'company_info_create' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="createModalLabel">Kompaniya malumotini yaratish</h5>
+                    <h5 class="modal-title" id="createModalLabel">Bog'lanish</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -79,12 +79,12 @@
                     
                     <div class="form-group">
                         <label>tel</label>
-                        <input type="tel" class="form-control" name="phone" value="{{ company_info.phone }}" required>
+                        <input type="tel" class="form-control" name="phone" required>
                     </div>
                     
                     <div class="form-group">
                         <label>email</label>
-                        <input type="email" class="form-control" name="email" value="{{ company_info.email }}" required>
+                        <input type="email" class="form-control" name="email" required>
                     </div>
                     
                 </div>
