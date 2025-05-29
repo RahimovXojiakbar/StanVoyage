@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from main.models import Gallery
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 
 
-
+@login_required(login_url='login')
 def gallery_list(request):
     galery = Gallery.objects.filter(is_active=True)
 
@@ -13,7 +14,7 @@ def gallery_list(request):
     }
     return render(request, 'gallery/list.html', context)
 
-
+@login_required(login_url='login')
 def gallery_create(request):
     if request.method == 'POST':
         image = request.FILES.get('image')
@@ -26,7 +27,7 @@ def gallery_create(request):
         messages.success(request, 'Galereya muvaffaqiyatli yaratildi!')
         return redirect('gallery_list')
 
-
+@login_required(login_url='login')
 def gallery_delete(request, uuid):
     gallery = Gallery.objects.get(uuid=uuid)
     if request.method == 'POST':
@@ -35,7 +36,7 @@ def gallery_delete(request, uuid):
         messages.success(request, 'Galereya muvaffaqiyatli o\'chirildi!')
         return redirect('gallery_list')
 
-
+@login_required(login_url='login')
 def gallery_edit(request, uuid):
     if request.method == 'POST':
         image = request.FILES.get('image')

@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from main import models
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
-
+@login_required(login_url='login')
 def about(request):
     about = models.AboutUs.objects.filter(is_active=True)
 
@@ -11,6 +12,8 @@ def about(request):
     }
     return render(request, 'about/about.html', context)
 
+
+@login_required(login_url='login')
 def about_create(request):
     if request.method == 'POST':
         image = request.FILES.get('image')
@@ -25,7 +28,7 @@ def about_create(request):
         messages.success(request, 'About muvaffaqiyatli yaratildi!')
         return redirect('about')
         
-
+@login_required(login_url='login')
 def about_edit(request, uuid):
     about = models.AboutUs.objects.get(uuid=uuid)
 
@@ -51,7 +54,7 @@ def about_edit(request, uuid):
 
 
 
-
+@login_required(login_url='login')
 def why_us(request):
     why_us = models.WhyUs.objects.filter(is_active=True)
 
@@ -61,7 +64,7 @@ def why_us(request):
     return render(request, 'about/why_us.html', context)
 
 
-
+@login_required(login_url='login')
 def why_us_create(request):
     if request.method == 'POST':
         image = request.FILES.get('image')
@@ -76,7 +79,7 @@ def why_us_create(request):
         messages.success(request, 'Ozimiz haqida muvaffaqiyatli yaratildi!')
         return redirect('whyus')
     
-
+@login_required(login_url='login')
 def why_us_edit(request, uuid):
     why_us = models.WhyUs.objects.get(uuid=uuid)
 
