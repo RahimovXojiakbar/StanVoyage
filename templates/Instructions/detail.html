@@ -22,51 +22,51 @@
                 <form action="{% url 'instructions_edit' instructions.uuid %}" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                 <div class="row mb-4">
-                    <div class="form-group col-12">
+                    <div class="form-group col-md-12">
                         <label>Rasm</label>
                         <input type="file" class="form-control" name="image">
                     </div>
-                    <div class="form-group col-6">
+                    <div class="form-group col-md-6">
                         <label>Inglizcha nomi</label>
                         <input type="text" class="form-control" value="{{instructions.title_en}}" name="title_en">
                     </div>
-                    <div class="form-group col-6">
+                    <div class="form-group col-md-6">
                         <label>Ruscha nomi</label>
                         <input type="text" class="form-control" value="{{instructions.title_ru}}" name="title_ru">
                     </div>
-                    <div class="form-group col-6">
+                    <div class="form-group col-md-6">
                         <label>Fransuzcha nomi</label>
                         <input type="text" class="form-control" value="{{instructions.title_fr}}" name="title_fr">
                     </div>
-                    <div class="form-group col-6">
+                    <div class="form-group col-md-6">
                         <label>Nemischa nomi</label>
                         <input type="text" class="form-control" value="{{instructions.title_de}}" name="title_de">
                     </div>
-                    <div class="form-group col-6">
+                    <div class="form-group col-md-6">
                         <label>Ispancha nomi</label>
                         <input type="text" class="form-control" value="{{instructions.title_es}}" name="title_es">
                     </div>
-                    <div class="form-group col-6">
+                    <div class="form-group col-md-6">
                         <label>Tahrirlangan sana</label>
                         <input type="text" class="form-control" value="{{instructions.updated_at|date:'Y-m-d H:i'}}" readonly>
                     </div>
-                    <div class="form-group col-6">
+                    <div class="form-group col-md-6">
                         <label>Inglizcha tavsifi</label>
                         <textarea class="summernote" name="description_en">{{instructions.content_en}}</textarea >
                     </div>
-                    <div class="form-group col-6">
+                    <div class="form-group col-md-6">
                         <label>Ruscha tavsifi</label>
                         <textarea class="summernote" name="description_ru">{{instructions.content_ru}}</textarea >
                     </div>
-                    <div class="form-group col-6">
+                    <div class="form-group col-md-6">
                         <label>Fransuzcha tavsifi</label>
                         <textarea class="summernote" name="description_fr">{{instructions.content_fr}}</textarea >
                     </div>
-                    <div class="form-group col-6">
+                    <div class="form-group col-md-6">
                         <label>Nemischa tavsifi</label>
                         <textarea class="summernote" name="description_de">{{instructions.content_de}}</textarea >
                     </div>
-                    <div class="form-group col-12">
+                    <div class="form-group col-md-12">
                         <label>Ispancha tavsifi</label>
                         <textarea class="summernote" name="description_es">{{instructions.content_es}}</textarea >
                     </div>
