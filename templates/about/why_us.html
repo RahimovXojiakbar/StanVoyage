@@ -8,19 +8,14 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-primary text-white-all">
                 <li class="breadcrumb-item"><a href="{% url 'list_page' %}"></i> Asosiy</a></li>
-                <li class="breadcrumb-item"><a href="{% url 'whyus' %}">Biz haqimizda</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'whyus' %}">Nima uchun biz</a></li>
             </ol>
         </nav>
         <div class="card">
             {% if why_us %}
              <div class="card-header">
-                        <h4>Ozimiz haqida</h4>
-                       
+                        <h4>Nima uchun biz</h4>
                     </div>
-            
-                <div class="card-header">
-                    <h4>Tafsilotlarni tahrirlash</h4>
-                </div>
                 {% for why_us in why_us %}
                 <div class="card-body">
                     <div class="d-flex justify-content-center mb-4">
@@ -54,8 +49,8 @@
                                 <input type="text" class="form-control" name="title_es" value="{{ why_us.title_es }}">
                             </div>
                             <div class="form-group col-6">
-                                <label>Yaratilgan sana</label>
-                                <input type="text" class="form-control" value="{{ why_us.created_at|date:'Y-m-d H:i' }}" readonly>
+                                <label>Tahrirlangan sana</label>
+                                <input type="text" class="form-control" value="{{ why_us.updated_at|date:'Y-m-d H:i' }}" readonly>
                             </div>
                             <div class="form-group col-6">
                                 <label>Inglizcha tavsifi</label>

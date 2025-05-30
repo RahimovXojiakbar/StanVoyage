@@ -14,7 +14,7 @@
             <div class="card-header">
                 <h4>Blog ro'yxati</h4>
                 <div class="card-header-action">
-                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#basicModal">
+                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createModal">
                     <i class="ion-plus"></i> Yaratish
                 </a>
                 </div>
@@ -48,7 +48,7 @@
     </div>
 </section>
 
-<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -61,7 +61,7 @@
         {% csrf_token %}
         <div class="modal-body">
           <div class="form-group">
-            <label>Image</label>
+            <label>Rasm</label>
             <input type="file" class="form-control" name="image">
           </div>
           <div class="form-group">

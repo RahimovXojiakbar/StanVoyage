@@ -119,7 +119,6 @@ class OurMission(BaseModel):
     content_de = models.TextField(null=True, blank=True)
     content_es = models.TextField(null=True, blank=True)
 
-    order = models.PositiveIntegerField(default=0)
 
 class Instructions(BaseModel):
     image = models.ImageField(upload_to='instructions/')
@@ -155,8 +154,6 @@ class Blog(BaseModel):
 class BlogImage(BaseModel):
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='blog_image') 
     image = models.ImageField(upload_to='blog_image')
-
-    order = models.PositiveIntegerField(default=0)
 
 class Comment(BaseModel):
     image = models.ImageField(upload_to='comments')

@@ -4,11 +4,5 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='login')
 def list(request):
-    return render(request, 'list_page.html')
+    return render(request, 'main.html')
 
-
-@login_required(login_url='login')
-def detail(request):
-    return render(request, 'detail_page.html')
-
-    

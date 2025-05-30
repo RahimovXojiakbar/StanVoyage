@@ -19,22 +19,10 @@
           <table class="table table-hover">
             <thead>
               <tr>
-<<<<<<< HEAD
                 <th class="text-center">#</th>
                 <th class="text-center">F.I.Sh.</th>
                 <th class="text-center">Telefon</th>
                 <th class="text-center">O'qilganmi</th>
-=======
-                <td class="text-center">{{ forloop.counter }}</td>
-                <td class="text-center">{{ user.fullname }}</td>
-                <td class="text-center">{{ user.phone }}</td>
-                <td class="text-center">
-                  <form method="post" action="{% url 'mark_as_read' user.uuid %}">
-                    {% csrf_token %}
-                    <input type="checkbox" name="is_read" onchange="this.form.submit()" {% if user.is_read %}checked{% endif %}>
-                  </form>
-                </td>
->>>>>>> 5b4540e8f7efd6ba85b268019748ce532a834bd2
               </tr>
             </thead>
             <tbody>
