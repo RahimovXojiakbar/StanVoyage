@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from main import models
 from django.contrib import messages
-
+from django.contrib.auth.decorators import login_required
+@login_required(login_url='login')
 def blog_list(request):
     blog = models.Blog.objects.filter(is_active = True)
     context = {
@@ -10,7 +11,7 @@ def blog_list(request):
     return render(request, 'blog/list.html', context)
 
 
-
+@login_required(login_url='login')
 def blog_detail(request, uuid):
     blog = models.Blog.objects.get(uuid=uuid)
     context = {
@@ -20,7 +21,7 @@ def blog_detail(request, uuid):
 
 
 
-
+@login_required(login_url='login')
 def blog_edit(request, uuid):
     blog = models.Blog.objects.get(uuid=uuid)
     if request.method == 'POST':
@@ -54,7 +55,7 @@ def blog_edit(request, uuid):
         messages.success(request, 'Blog muvaffaqiyatli yangilandi!')
         return redirect('blog_detail', blog.uuid)
 
-
+@login_required(login_url='login')
 def blog_create(request):
     if request.method == 'POST':
         image = request.FILES.get('image')
@@ -69,7 +70,7 @@ def blog_create(request):
         messages.success(request, 'Blog muvaffaqiyatli yaratildi!')
         return redirect('blog_detail', new_blog.uuid)
 
-
+@login_required(login_url='login')
 def blog_delete(request, uuid):
     blog = models.Blog.objects.get(uuid=uuid)
     if request.method == 'POST':
