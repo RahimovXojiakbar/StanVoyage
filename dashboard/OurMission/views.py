@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from main import models
 from django.contrib import messages
-
-
+from django.contrib.auth.decorators import login_required
+ 
+@login_required(login_url='login')
 def our_mission_list(request):
     our_missions = models.OurMission.objects.filter(is_active=True)
     context = {
@@ -12,7 +13,7 @@ def our_mission_list(request):
 
 
 
-
+@login_required(login_url='login')
 def our_mission_detail(request, uuid):
     our_mission = models.OurMission.objects.get(uuid=uuid)
     context = {
@@ -20,6 +21,8 @@ def our_mission_detail(request, uuid):
     }
     return render(request, 'our_missions/detail.html', context)
 
+
+@login_required(login_url='login')
 def our_mission_create(request):
     if request.method == 'POST':
         title_en = request.POST.get('title_en')
@@ -35,7 +38,7 @@ def our_mission_create(request):
         return redirect('ourmission_detail', new_our_mission.uuid)
 
 
-
+@login_required(login_url='login')
 def our_mission_delete(request, uuid):
     our_mission = models.OurMission.objects.get(uuid=uuid)
     if request.method == 'POST':
@@ -46,7 +49,7 @@ def our_mission_delete(request, uuid):
     return redirect('ourmission_list')
 
 
-
+@login_required(login_url='login')
 def our_mission_edit(request, uuid):
     our_mission = models.OurMission.objects.get(uuid=uuid)
     if request.method == 'POST':
