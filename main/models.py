@@ -1,12 +1,57 @@
 from django.db import models
 from uuid import uuid4
- 
+from bs4 import BeautifulSoup
+import translators as ts    
 
 class BaseModel(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def translate_text(self, text, target_lang):
+        if not text or not text.strip():
+            return text
+        
+        if '<' in text and '>' in text:
+            soup = BeautifulSoup(text, "html.parser")
+            for element in soup.find_all(text=True):
+                stripped_text = element.strip()
+                if stripped_text:
+                    try:
+                        translation = ts.translate_text(
+                            stripped_text, to_language=target_lang, translator='google'
+                        )
+                        element.replace_with(translation)
+                    except Exception as e:
+                        print(f"'{stripped_text}' ni {target_lang} ga tarjima qilishda xato: {e}")
+            return str(soup)
+        else:
+            try:
+                return ts.translate_text(text, to_language=target_lang, translator='google')
+            except Exception as e:
+                print(f"'{text}' ni {target_lang} ga tarjima qilishda xato: {e}")
+                return text
+
+    def save(self, *args, **kwargs):
+        for field in self._meta.fields:
+            if field.name.endswith('_en'):
+                base_value = getattr(self, field.name)  
+                if base_value:  
+                    base_name = field.name[:-3]  
+                    lang_suffixes = {
+                        '_ru': 'ru',  
+                        '_fr': 'fr',  
+                        '_de': 'de',  
+                        '_es': 'es',  
+                    }
+                    for suffix, lang_code in lang_suffixes.items():
+                        target_field = base_name + suffix  
+                        if hasattr(self, target_field) and not getattr(self, target_field):
+                            translated_value = self.translate_text(base_value, lang_code)
+                            setattr(self, target_field, translated_value)
+        
+        super(BaseModel, self).save(*args, **kwargs)
 
 
     class Meta:

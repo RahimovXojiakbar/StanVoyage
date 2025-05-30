@@ -40,7 +40,7 @@ def trip_detail(request, uuid):
         "trip_days": trip_days,
         "services": services
     }
-    return render(request, 'trips/detail.html', context)
+    return render(request, 'trips/detail.html', context)    
 
 @login_required(login_url='login')
 def trip_edit(request, uuid):
