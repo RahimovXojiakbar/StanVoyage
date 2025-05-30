@@ -8,7 +8,7 @@
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
   <meta name="csrf-token" content="{{ csrf_token }}"> 
-  <title>Otika - Admin Dashboard Template</title>
+  <title>Stan Voyage</title>
   <!-- General CSS Files -->
   <link rel="stylesheet" href="{% static 'assets/css/app.min.css' %}">
   <link rel="stylesheet" href="{% static 'assets/bundles/summernote/summernote-bs4.css' %}">
@@ -21,6 +21,7 @@
   <!-- Custom style CSS -->
   <link rel="stylesheet" href="{% static 'assets/css/custom.css' %}">
   <link rel="stylesheet" href="{% static 'assets/bundles/ionicons/css/ionicons.min.css' %}">
+  <link rel='shortcut icon' type='image/x-icon' href="{% static 'StanLogo.png' %}">
 
   <style>
     table tr td img{
@@ -68,57 +69,52 @@
             </a>
           </div>
           <ul class="sidebar-menu">
-            <li class="dropdown active">
-              <a href="{% url 'list_page' %}" class="nav-link"><i data-feather="monitor"></i><span>Dashboard</span></a>
-            </li>
-            <li class="dropdown">
+            <li class="dropdown {% if 'dashboard/social/social/' in request.path %} active {% endif %}">
               <a href="{% url 'social' %}" class="nav-link">
                 <i data-feather="share-2"></i><span>Ijtimoiy tarmoqlar</span>
               </a>
             </li>
-            <li class="dropdown">
-              <a href="{% url 'company_info' %}" class="nav-link">  
+            <li class="dropdown {% if 'dashboard/social/company-info/' in request.path %} active {% endif %}">
+              <a href="{% url 'company_info' %}" class="nav-link">
                 <i data-feather="phone"></i><span>Bog'lanish</span>
               </a>
             </li>
-            <li class="dropdown">
+            <li class="dropdown {% if 'dashboard/about/about/' in request.path %} active {% endif %}">
               <a href="{% url 'about' %}" class="nav-link">
                 <i data-feather="info"></i><span>Biz haqimizda</span>
               </a>
             </li>
-            <li class="dropdown">
+            <li class="dropdown {% if 'dashboard/about/whyus/' in request.path %} active {% endif %}">
               <a href="{% url 'whyus' %}" class="nav-link">
                 <i data-feather="check-circle"></i><span>Nima uchun biz</span>
               </a>
             </li>
-            <li class="dropdown">
+            <li class="dropdown {% if 'dashboard/banner/banner/list/' in request.path or 'dashboard/banner/banner/detail/' in request.path %} active {% endif %}">
               <a href="{% url 'banner_list' %}" class="nav-link">
                 <i data-feather="image"></i><span>Banner</span>
               </a>
             </li>
-            
-            <li class="dropdown">
+            <li class="dropdown {% if 'dashboard/gallery/gallery/list/' in request.path %} active {% endif %}">
               <a href="{% url 'gallery_list' %}" class="nav-link">
                 <i data-feather="grid"></i><span>Galereya</span>
               </a>
             </li>
-            
-            <li class="dropdown">
+            <li class="dropdown {% if 'dashboard/ourmission/ourmission/list/' in request.path or 'dashboard/ourmission/ourmission/detail/' in request.path %} active {% endif %}">
               <a href="{% url 'ourmission_list' %}" class="nav-link">
-                <i data-feather="target"></i><span>Bizning missiyamiz</span>
+                <i data-feather="target"></i><span>Bizning vazifalar</span>
               </a>
             </li>
-            <li class="dropdown">
+            <li class="dropdown {% if 'dashboard/instructions/Instructions/list/' in request.path or 'dashboard/instructions/Instructions/detail/' in request.path %} active {% endif %}">
               <a href="{% url 'instructions_list' %}" class="nav-link">
                 <i data-feather="book"></i><span>Ko'rsatmalar</span>
               </a>
             </li>
-            <li class="dropdown">
+            <li class="dropdown {% if 'dashboard/blog/Blog/list/' in request.path or 'dashboard/blog/Blog/detail/' in request.path %} active {% endif %}">
               <a href="{% url 'blog_list' %}" class="nav-link">
                 <i data-feather="file-text"></i><span>Blog</span>
               </a>
             </li>
-            <li class="dropdown">
+            <li class="dropdown {% if 'dashboard/comment/comment/list/' in request.path or 'dashboard/comment/comment/detail/' in request.path %} active {% endif %}">
               <a href="{% url 'comment_list' %}" class="nav-link">
                 <i data-feather="message-circle"></i><span>Izohlar</span>
               </a>
@@ -128,39 +124,38 @@
                 <i data-feather="heart"></i><span>An'analar</span>
               </a>
             </li>
-            <li class="dropdown">
+            <li class="dropdown {% if 'dashboard/testimionals/testimionals/list/' in request.path or 'dashboard/testimionals/testimionals/detail/' in request.path %} active {% endif %}">
               <a href="{% url 'testimionals_list' %}" class="nav-link">
                 <i data-feather="star"></i><span>Mijozlar fikri</span>
               </a>
             </li>
-            <li class="dropdown">
+            <li class="dropdown {% if 'dashboard/country/country/list/' in request.path or 'dashboard/country/country/detail/' in request.path or 'dashboard/country/country/locations/' in request.path %} active {% endif %}">
               <a href="{% url 'country_list' %}" class="nav-link">
                 <i data-feather="globe"></i><span>Davlatlar</span>
               </a>
             </li>
-            <li class="dropdown">
-              <a href="{% url 'trip_list' %}"  class="nav-link">
+            <li class="dropdown {% if 'dashboard/trip/trip/list/' in request.path or 'dashboard/trip/trip/detail/' in request.path or 'dashboard/trip/trip/service/detail/' in request.path or 'dashboard/trip/trip/trip/days/detail/' in request.path %} active {% endif %}">
+              <a href="{% url 'trip_list' %}" class="nav-link">
                 <i data-feather="map"></i><span>Sayohatlar</span>
               </a>
             </li>
-            <li class="dropdown">
+            <li class="dropdown {% if 'dashboard/trip/trip/orders/' in request.path %} active {% endif %}">
               <a href="{% url 'trip_order_list' %}" class="nav-link">
                 <i data-feather="shopping-cart"></i><span>Sayohat buyurtmalari</span>
               </a>
             </li>
-            <li class="dropdown">
+            <li class="dropdown {% if 'dashboard/social/contact/list/' in request.path %} active {% endif %}">
               <a href="{% url 'contact_list' %}" class="nav-link">
                 <i data-feather="user"></i><span>Kontaktlar</span>
               </a>
             </li>
-            
           </ul>
         </aside>
       </div>
 
       
       <!-- Main Content -->
-      <div class="main-content">
+      <div class="main-content" style="margin-bottom: 100px;">
         {% include 'message.html' %}
         {% block content %}
 

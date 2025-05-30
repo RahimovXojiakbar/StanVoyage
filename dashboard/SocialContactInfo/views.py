@@ -25,7 +25,7 @@ def social_create(request):
            whatsapp = whatsapp,
            gmail = gmail
         )
-        messages.success(request, 'ijtimoi tarmoq muvaffaqiyatli yaratildi!')
+        messages.success(request, 'Ijtimoyi tarmoq muvaffaqiyatli yaratildi!')
         return redirect('social')
         
 @login_required(login_url='login')
@@ -33,7 +33,7 @@ def social_edit(request, uuid):
     social = models.Social.objects.get(uuid=uuid)
     if request.method == 'POST':
         # Update only provided fields
-        instagram = request.POST.get('intsagram')
+        instagram = request.POST.get('instagram')
         telegram = request.POST.get('telegram')
         whatsapp = request.POST.get('whatsapp')
         gmail = request.POST.get('gmail')
@@ -44,7 +44,7 @@ def social_edit(request, uuid):
         social.gmail = gmail
         
         social.save()
-        messages.success(request, 'ijtimoi tarmoq muvaffaqiyatli yangilandi!')
+        messages.success(request, 'Ijtimoyi tarmoq muvaffaqiyatli yangilandi!')
         return redirect('social')
 
 
@@ -74,7 +74,7 @@ def company_info_create(request):
            phone = phone,
            email = email
         )
-        messages.success(request, 'ijtimoi tarmoq muvaffaqiyatli yaratildi!')
+        messages.success(request, 'Bog\'lanish muvaffaqiyatli yaratildi!')
         return redirect('company_info')
     
 
@@ -94,7 +94,7 @@ def company_info_edit(request, uuid):
         company_info.email = email
 
         company_info.save()
-        messages.success(request, 'ijtimoi tarmoq muvaffaqiyatli yangilandi!')
+        messages.success(request, 'Bog\'lanish muvaffaqiyatli yangilandi!')
         return redirect('company_info')
 
 

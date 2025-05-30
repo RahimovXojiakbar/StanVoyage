@@ -12,6 +12,6 @@ urlpatterns = [
     path('company-info/create/', views.company_info_create, name='company_info_create'),
 
     path('contact/list/', views.contact_list, name='contact_list'),
-    path('contact/toggle-active/<uuid:uuid>/', views.toggle_active, name='toggle_active'),
+    path('contact/toggle-active/<str:uuid>/', views.toggle_active, name='toggle_active'),
 
 ]

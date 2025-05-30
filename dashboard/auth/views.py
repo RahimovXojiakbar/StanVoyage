@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 
 def login_user(request):
     if request.user.is_authenticated:
-        if request.user.superuser:
+        if request.user.is_superuser:
             return redirect('list_page')
         else:
             return redirect('login')
@@ -17,7 +17,7 @@ def login_user(request):
 
         user = authenticate(request, username=username, password=password)
         if user:
-            if user.is_staff:
+            if user.is_superuser:
                 login(request, user)
                 return redirect('list_page')
             else:
