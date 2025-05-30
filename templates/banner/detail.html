@@ -22,7 +22,7 @@
                 <form action="{% url 'banner_edit' banner.uuid %}" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="row md-4">
-                        <div class="form-group col-mb-12">
+                        <div class="form-group col-md-12">
                             <label>Rasm</label>
                             <input type="file" class="form-control" name="image">
                         </div>
