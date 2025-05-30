@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<section class="section">
+    <div class="section-body">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-primary text-white-all">
+            <li class="breadcrumb-item"><a href="{% url 'list_page' %}"></i> Asosiy</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'testimionals_list' %}">Fikrklar ro'yxati</a></li>
+            <li class="breadcrumb-item">Fikr mulohaza</li>
+          </ol>
+        </nav>
+        <div class="card">
+            <div class="card-header">
+              <h4>Fikr tafsilotlari</h4>
+            </div>
+            <div class="card-body">
+                <form action="{% url 'testimionals_update' testimional.uuid %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label>Mijoz ismi</label>
+                            <input type="text" class="form-control" value="{{testimional.author}}" name="author">
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Tahrirlangan sana</label>
+                            <input type="text" class="form-control" value="{{testimional.updated_at |date:'Y-m-d H:i'}}" name="updated_at" readonly>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Inglizcha tavsifi</label>
+                            <textarea class="summernote" name="content_en">{{ testimional.content_en }}</textarea >
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Ruscha tavsifi</label>
+                            <textarea class="summernote" name="content_ru">{{ testimional.content_ru }}</textarea >
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Fransuzcha tavsifi</label>
+                            <textarea class="summernote" name="content_fr">{{ testimional.content_fr }}</textarea >
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Nemischa tavsifi</label>
+                            <textarea class="summernote" name="content_de">{{ testimional.content_de }}</textarea >
+                        </div>
+                        <div class="form-group col-12">
+                            <label>Ispancha tavsifi</label>
+                            <textarea class="summernote" name="content_es">{{ testimional.content_es }}</textarea >
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-primary text-right"><i class="ion-android-cloud-done"></i> Saqlash</button>
+                    </div>
+                </form>
+            </div>
+          </div>
+    </div>
+</section>
+
+
+{% endblock content %}

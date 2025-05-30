@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<style>
+    table tr:hover{
+      cursor: move;
+    }
+</style>
+  
+<section class="section">
+    <div class="section-body">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-primary text-white-all">
+            <li class="breadcrumb-item"><a href="{% url 'list_page' %}"></i> Asosiy</a></li>
+            <li class="breadcrumb-item"><a href="#"> Izoxlar ro'yxati</a></li>
+          </ol>
+        </nav>
+        <div class="card">
+            <div class="card-header">
+                <h4>Izoxlar ro'yxati</h4>
+                <div class="card-header-action">
+                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createModal">
+                    <i class="ion-plus"></i> Yaratish
+                </a>
+                </div>
+            </div>
+            <div class="card-body">
+        {% if comments %}
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Rasm</th>
+                    <th class="text-center">F.I.O</th>
+                    <th class="text-center">Harakatlar</th>
+                  </tr>
+                </thead>
+                <tbody id="comment-sortable">
+                    {% for comment in comments %}
+                    <tr data-id="{{comment.uuid}}">
+                      <th scope="row" class="text-center">{{ forloop.counter }}</th>
+                      <td class="text-center">
+                          <img src="{{ comment.image.url }}" alt="rasm" style="border-radius: 50%; object-fit: cover; margin: 6px; width: 50px !important; height: 50px !important;">
+                      </td>                      
+                      <td class="text-center">{{ comment.fullname }}</td>
+                      <td class="text-center">
+                          <a href="{% url 'comment_update' comment.uuid %}" class="btn btn-warning"><i class="ion-android-create"></i></a>
+                          <a href="{% url 'comment_delete' comment.uuid %}" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal-{{ comment.uuid }}"><i class="ion-android-delete"></i></a>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+            </table>
+
+        {% else %}
+            <div class="d-flex justify-content-center align-items-center flex-column">
+                <img src="{% static 'img/image.png' %}" alt="" style="width: 50%; height: 50%; object-fit: cover;">
+                <h5 class="pb-4">Ma'lumot topilmadi</h5>
+            </div>
+        {% endif %}
+
+          </div>
+        </div>
+    </div>  
+</section>
+
+
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form action="{% url 'comment_create' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Izox yaratish</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label>Rasm</label>
+              <input type="file" class="form-control" name="image" required>
+            </div>
+            <div class="form-group">
+              <label>F.I.O</label>
+              <input type="text" class="form-control" name="fullname" required>
+            </div>
+            <div class="form-group">
+                <label>Izox</label>
+                <textarea class="summernote" name="text" required></textarea>
+            </div>
+          </div>
+          <div class="modal-footer bg-whitesmoke br">
+            <button type="submit" class="btn btn-primary"><i class="ion-plus"></i> Yaratish</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Yopish</button>
+          </div>
+        </div>
+    </form>
+  </div>
+</div>
+
+{% for comment in comments %}
+<div class="modal fade" id="deleteModal-{{ comment.uuid }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form action="{% url 'comment_delete' comment.uuid %}" method="post">
+        {% csrf_token %}
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Izox</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h5>Izox o'chirilsinmi</h5>
+          </div>
+          <div class="modal-footer bg-whitesmoke br">
+            <button type="submit" class="btn btn-danger"><i class="ion-android-delete"></i> O'chirish</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Yopish</button>
+          </div>
+        </div>
+    </form>
+  </div>
+</div>
+{% endfor %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    let sortable = new Sortable(document.getElementById('comment-sortable'), {
+        animation: 150,
+        delay: 200,
+        delayOnTouchOnly: true,
+        onEnd: function () {
+            let order = [];
+            document.querySelectorAll('#comment-sortable tr').forEach(function (el) {
+                order.push(el.getAttribute('data-id'));
+            });
+
+            fetch("{% url 'comment_reorder' %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': csrfToken
+                },
+                body: 'order=' + JSON.stringify(order)
+            }).then(response => {
+                if (!response.ok) throw new Error("Xatolik");
+                return response.json();
+            }).then(data => {
+                console.log("Yangi tartib saqlandi");
+            }).catch(err => {
+                alert("Xatolik yuz berdi");
+            });
+        }
+    });
+});
+</script>
+
+{% endblock content %}

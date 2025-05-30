@@ -6,20 +6,21 @@
     <div class="section-body">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-primary text-white-all">
-            <li class="breadcrumb-item"><a href="#"></i> Asosiy</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'list_page' %}"></i> Asosiy</a></li>
             <li class="breadcrumb-item"><a href="{% url 'list_page' %}"> Korsatma ro'yxati</a></li>
           </ol>
         </nav>
         <div class="card">
             <div class="card-header">
-                <h4>Korsatma ro'yxati</h4>
+                <h4>Korsatmalar ro'yxati</h4>
                 <div class="card-header-action">
-                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#basicModal">
+                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createModal">
                     <i class="ion-plus"></i> Yaratish
                 </a>
                 </div>
             </div>
             <div class="card-body">
+              {% if instructions %}
               <table class="table table-hover">
                 <thead>
                   <tr>
@@ -44,13 +45,19 @@
                   {% endfor %}
                 </tbody>
             </table>
+            {% else %}
+                <div class="d-flex justify-content-center align-items-center flex-column">
+                <img src="{% static 'img/image.png' %}" alt="" style="width: 50%; height: 50%; object-fit: cover;">
+                <h5 class="pb-4">Malumot topilmadi</h5>
+                </div>
+            {% endif %}
           </div>
         </div>
     </div>
 </section>
 
 
-<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -63,7 +70,7 @@
         {% csrf_token %}
           <div class="modal-body">
             <div class="form-group">
-              <label>Image</label>
+              <label>Rasm</label>
               <input type="file" class="form-control" name="image" required>
             </div>
             <div class="form-group">

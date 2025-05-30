@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<section class="section">
+    <div class="section-body">
+      <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-primary text-white-all">
+            <li class="breadcrumb-item"><a href="{% url 'list_page' %}"></i> Asosiy</a></li>
+          </ol>
+        </nav>
+        <div class="card">
+            <div class="card-body text-center">
+                <div class="row" style="text-align: center;">
+                  <div class="col-md-6">
+                    <div class="card ">
+                      <div class="card-body">
+                        <a href="{% url 'social' %}" style="font-size: 1.6rem; color:rgb(133, 93, 245);">
+                          <i data-feather="share-2"></i><span> Ijtimoiy tarmoqlar</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="card ">
+                      <div class="card-body">
+                        <a href="{% url 'company_info' %}" style="font-size: 1.6rem; color:rgb(133, 93, 245);">
+                          <i data-feather="phone"></i><span> Bog'lanish</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="card ">
+                      <div class="card-body">
+                        <a href="{% url 'about' %}" style="font-size: 1.6rem; color:rgb(133, 93, 245);">
+                          <i data-feather="info"></i><span> Biz haqimizda</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="card ">
+                      <div class="card-body">
+                        <a href="{% url 'whyus' %}" style="font-size: 1.6rem; color:rgb(133, 93, 245);">
+                          <i data-feather="check-circle"></i><span> Nima uchun biz</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="card ">
+                      <div class="card-body">
+                        <a href="{% url 'banner_list' %}" style="font-size: 1.6rem; color:rgb(133, 93, 245);">
+                          <i data-feather="image"></i><span> Banner</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="card ">
+                      <div class="card-body">
+                        <a href="{% url 'gallery_list' %}" style="font-size: 1.6rem; color:rgb(133, 93, 245);">
+                          <i data-feather="grid"></i><span> Galereya</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="card ">
+                      <div class="card-body">
+                        <a href="{% url 'ourmission_list' %}" style="font-size: 1.6rem; color:rgb(133, 93, 245);">
+                          <i data-feather="target"></i><span> Bizning vazifalar</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="card ">
+                      <div class="card-body">
+                        <a href="{% url 'instructions_list' %}" style="font-size: 1.6rem; color:rgb(133, 93, 245);">
+                          <i data-feather="book"></i><span> Ko'rsatmalar</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="card ">
+                      <div class="card-body">
+                        <a href="{% url 'blog_list' %}" style="font-size: 1.6rem; color:rgb(133, 93, 245);">
+                          <i data-feather="file-text"></i><span> Blog</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="card ">
+                      <div class="card-body">
+                        <a href="{% url 'comment_list' %}" style="font-size: 1.6rem; color:rgb(133, 93, 245);">
+                          <i data-feather="message-circle"></i><span> Izohlar</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="card ">
+                      <div class="card-body">
+                        <a href="#" style="font-size: 1.6rem; color:rgb(133, 93, 245);">
+                          <i data-feather="heart"></i><span> An'analar</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="card ">
+                      <div class="card-body">
+                        <a href="{% url 'testimionals_list' %}" style="font-size: 1.6rem; color:rgb(133, 93, 245);">
+                          <i data-feather="star"></i><span> Mijozlar fikri</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="card ">
+                      <div class="card-body">
+                        <a href="{% url 'country_list' %}" style="font-size: 1.6rem; color:rgb(133, 93, 245);">
+                          <i data-feather="globe"></i><span> Davlatlar</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="card ">
+                      <div class="card-body">
+                        <a href="{% url 'trip_list' %}" style="font-size: 1.6rem; color:rgb(133, 93, 245);">
+                          <i data-feather="map"></i><span> Sayohatlar</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="card ">
+                      <div class="card-body">
+                        <a href="{% url 'trip_order_list' %}" style="font-size: 1.6rem; color:rgb(133, 93, 245);">
+                          <i data-feather="shopping-cart"></i><span> Sayohat buyurtmalari</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="card ">
+                      <div class="card-body">
+                        <a href="{% url 'contact_list' %}" style="font-size: 1.6rem; color:rgb(133, 93, 245);">
+                          <i data-feather="user"></i><span> Kontaktlar</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+   
+
+
+
+
+{% endblock content %}
+

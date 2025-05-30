@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from main import models
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
-
+@login_required(login_url='login')
 def instructions_list(request):
     instructions = models.Instructions.objects.filter(is_active=True)
     context = {
@@ -10,7 +12,7 @@ def instructions_list(request):
     return render(request, 'instructions/list.html', context)
 
 
-
+@login_required(login_url='login')
 def instructions_detail(request, uuid):
     instructions = models.Instructions.objects.get(uuid=uuid)
     context = {
@@ -18,7 +20,7 @@ def instructions_detail(request, uuid):
     }
     return render(request, 'instructions/detail.html', context)
 
-
+@login_required(login_url='login')
 def instructions_edit(request, uuid):
     instructions = models.Instructions.objects.get(uuid=uuid)
 
@@ -49,19 +51,21 @@ def instructions_edit(request, uuid):
         instructions.content_es = description_es
         
         instructions.save()
+    messages.success(request, 'Korsatuvchi muvaffaqiyatli tahrirlandi!')
     return redirect('instructions_detail', instructions.uuid) 
 
 
-
+@login_required(login_url='login')
 def instructions_delete(request, uuid):
     instructions = models.Instructions.objects.get(uuid=uuid)
     if request.method == 'POST':
         instructions.is_active = False
         instructions.save()
+    messages.success(request, 'Korsatuvchi muvaffaqiyatli o\'chirildi!')
     return redirect('instructions_list')
 
 
-
+@login_required(login_url='login')
 def instructions_create(request):
     if request.method == 'POST':
         image = request.FILES.get('image')
@@ -73,4 +77,5 @@ def instructions_create(request):
             title_en=title_en,
             content_en=content_en
         )
+        messages.success(request, 'Korsatuvchi muvaffaqiyatli yaratildi!')
         return redirect('instructions_detail', new_instructions.uuid)

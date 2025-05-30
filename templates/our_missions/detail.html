@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<section class="section">
+    <div class="section-body">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-primary text-white-all">
+            <li class="breadcrumb-item"><a href="{% url 'list_page' %}"></i> Asosiy</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'ourmission_list' %}"> Bizning vazifalar ro'yxati</a></li>
+            <li class="breadcrumb-item">Bizning vazifa</li>
+          </ol>
+        </nav>
+        <div class="card">
+            <div class="card-header">
+              <h4>Bizning vazifalar</h4>
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-center mb-4">
+                    <img src="{{our_mission.image.url}}" width="500px" height="300px" alt="rasm">
+                </div>
+                <form action="{% url 'ourmission_edit' our_mission.uuid %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                <div class="row mb-4">
+                    <div class="form-group col-12">
+                        <label>Rasm</label>
+                        <input type="file" class="form-control" name="image">
+                    </div>
+                    <div class="form-group col-6">
+                        <label>Inglizcha nomi</label>
+                        <input type="text" class="form-control" value="{{our_mission.title_en}}" name="title_en">
+                    </div>
+                    <div class="form-group col-6">
+                        <label>Ruscha nomi</label>
+                        <input type="text" class="form-control" value="{{our_mission.title_ru}}" name="title_ru">
+                    </div>
+                    <div class="form-group col-6">
+                        <label>Fransuzcha nomi</label>
+                        <input type="text" class="form-control" value="{{our_mission.title_fr}}" name="title_fr">
+                    </div>
+                    <div class="form-group col-6">
+                        <label>Nemischa nomi</label>
+                        <input type="text" class="form-control" value="{{our_mission.title_de}}" name="title_de">
+                    </div>
+                    <div class="form-group col-6">
+                        <label>Ispancha nomi</label>
+                        <input type="text" class="form-control" value="{{our_mission.title_es}}" name="title_es">
+                    </div>
+                    <div class="form-group col-6">
+                        <label>Tahrirlangan sana</label>
+                        <input type="text" class="form-control" value="{{our_mission.updated_at|date:'Y-m-d H:i'}}" readonly>
+                    </div>
+                    <div class="form-group col-6">
+                        <label>Inglizcha tavsifi</label>
+                        <textarea class="summernote" name="description_en">{{our_mission.content_en}}</textarea >
+                    </div>
+                    <div class="form-group col-6">
+                        <label>Ruscha tavsifi</label>
+                        <textarea class="summernote" name="description_ru">{{our_mission.content_ru}}</textarea >
+                    </div>
+                    <div class="form-group col-6">
+                        <label>Fransuzcha tavsifi</label>
+                        <textarea class="summernote" name="description_fr">{{our_mission.content_fr}}</textarea >
+                    </div>
+                    <div class="form-group col-6">
+                        <label>Nemischa tavsifi</label>
+                        <textarea class="summernote" name="description_de">{{our_mission.content_de}}</textarea >
+                    </div>
+                    <div class="form-group col-12">
+                        <label>Ispancha tavsifi</label>
+                        <textarea class="summernote" name="description_es">{{our_mission.content_es}}</textarea >
+                    </div>
+                </div>
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-primary text-right"><i class="ion-android-cloud-done"></i> Saqlash</button>
+                    </div>
+                </form>
+            </div>
+          </div>
+    </div>
+</section>
+
+
+{% endblock content %}

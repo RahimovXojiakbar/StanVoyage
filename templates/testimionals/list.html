@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<section class="section">
+    <div class="section-body">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-primary text-white-all">
+            <li class="breadcrumb-item"><a href="{% url 'list_page' %}"></i> Asosiy</a></li>
+            <li class="breadcrumb-item"><a href="#"> Fikrlar ro'yxati</a></li>
+          </ol>
+        </nav>
+        <div class="card">
+            <div class="card-header">
+                <h4>Fikrlar ro'yxati</h4>
+                <div class="card-header-action">
+                <a href="" class="btn btn-primary" data-toggle="modal" data-target="#createModal">
+                    <i class="ion-plus"></i> Yaratish
+                </a>
+                </div>
+            </div>
+            <div class="card-body">
+            {% if testimionals %}
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Mijoz ismi</th>
+                    <th class="text-center">Harakatlar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for test in testimionals %}
+                  <tr>
+                    <th scope="row" class="text-center">{{forloop.counter}}</th>
+                    <td class="text-center">{{test.author}}</td>
+                    <td class="text-center">
+                        <a href="{% url 'testimionals_detail' test.uuid  %}" class="btn btn-warning"><i class="ion-android-create"></i></a>
+                        <a href="{% url 'testimionals_delete' test.uuid %}" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal-{{test.uuid}}"><i class="ion-android-delete"></i></a>
+                    </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="d-flex justify-content-center align-items-center flex-column">
+                <img src="{% static 'img/image.png' %}" alt="" style="width: 50%; height: 50%; object-fit: cover;">
+                <h5 class="pb-4">Ma'lumot topilmadi</h5>
+            </div>
+            {% endif %}   
+          </div>
+        </div>
+    </div>
+</section>
+
+
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form action="{% url 'testimionals_create' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Fikr yaratish</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label>Mijoz ismi</label>
+              <input type="text" class="form-control" name="author" required>
+            </div>
+            <div class="form-group">
+                <label>Fikr</label>
+                <textarea class="summernote" name="content_en" required></textarea>
+            </div>
+          </div>
+          <div class="modal-footer bg-whitesmoke br">
+            <button type="submit" class="btn btn-primary"><i class="ion-plus"></i> Yaratish</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Yopish</button>
+          </div>
+        </div>
+    </form>
+  </div>
+</div>
+
+{% for test in testimionals %}
+<div class="modal fade" id="deleteModal-{{test.uuid}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form action="{% url 'testimionals_delete' test.uuid %}" method="post">
+        {% csrf_token %}
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Fikr</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h5>Fikr o'chirilsinmi</h5>
+          </div>
+          <div class="modal-footer bg-whitesmoke br">
+            <button type="submit" class="btn btn-danger"><i class="ion-android-delete"></i> O'chirish</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Yopish</button>
+          </div>
+        </div>
+    </form>
+  </div>
+</div>
+{% endfor %}
+
+
+{% endblock content %}
+

@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<section class="section">
+    <div class="section-body">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-primary text-white-all">
+            <li class="breadcrumb-item"><a href="{% url 'list_page' %}"></i> Asosiy</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'trip_detail' trip.uuid %}"> Sayohat kunlari ro'yxati</a></li>
+            <li class="breadcrumb-item">Sayohat kuni</li>
+          </ol>
+        </nav>
+        <div class="card">
+            <div class="card-header">
+              <h4>Sayohat kuni tafsilotlari</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{% url 'trip_days_update' trip_days.uuid %}">
+                    {% csrf_token %}
+                    <div class="row mb-4">
+                        <div class="form-group col-6">
+                            <label>Inglizcha nomi</label>
+                            <input type="text" class="form-control" value="{{trip_days.title_en}}" name="title_en">
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Ruscha nomi</label>
+                            <input type="text" class="form-control" value="{{trip_days.title_ru}}" name="title_ru">
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Fransuzcha nomi</label>
+                            <input type="text" class="form-control" value="{{trip_days.title_fr}}" name="title_fr">
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Nemischa nomi</label>
+                            <input type="text" class="form-control" value="{{trip_days.title_de}}" name="title_de">
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Ispancha nomi</label>
+                            <input type="text" class="form-control" value="{{trip_days.title_es}}" name="title_es">
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Tahrirlangan sana</label>
+                            <input type="text" class="form-control" value="{{trip_days.updated_at |date:'Y-m-d H:i' }}" name="updated_at" readonly>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Inglizcha tavsifi</label>
+                            <textarea class="summernote" name="content_en">{{trip_days.content_en}}</textarea>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Ruscha tavsifi</label>
+                            <textarea class="summernote" name="content_ru">{{trip_days.content_ru}}</textarea>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Fransuzcha tavsifi</label>
+                            <textarea class="summernote" name="content_fr">{{trip_days.content_fr}}</textarea>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Nemischa tavsifi</label>
+                            <textarea class="summernote" name="content_de">{{trip_days.content_de}}</textarea>
+                        </div>
+                        <div class="form-group col-12">
+                            <label>Ispancha tavsifi</label>
+                            <textarea class="summernote" name="content_es">{{trip_days.content_es}}</textarea>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-primary text-right">
+                            <i class="ion-android-cloud-done"></i> Saqlash
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

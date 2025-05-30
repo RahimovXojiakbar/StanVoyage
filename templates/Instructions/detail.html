@@ -6,7 +6,7 @@
     <div class="section-body">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-primary text-white-all">
-            <li class="breadcrumb-item"><a href="#"></i> Asosiy</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'list_page' %}"></i> Asosiy</a></li>
             <li class="breadcrumb-item"><a href="{% url 'instructions_list' %}"> Korsatma ro'yxati</a></li>
             <li class="breadcrumb-item">Korsatma</li>
           </ol>
@@ -47,8 +47,8 @@
                         <input type="text" class="form-control" value="{{instructions.title_es}}" name="title_es">
                     </div>
                     <div class="form-group col-6">
-                        <label>Yaratilgan sana</label>
-                        <input type="text" class="form-control" value="{{instructions.created_at}}" readonly>
+                        <label>Tahrirlangan sana</label>
+                        <input type="text" class="form-control" value="{{instructions.updated_at|date:'Y-m-d H:i'}}" readonly>
                     </div>
                     <div class="form-group col-6">
                         <label>Inglizcha tavsifi</label>

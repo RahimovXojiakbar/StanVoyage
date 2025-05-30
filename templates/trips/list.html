@@ -2,11 +2,19 @@
 {% block content %}
 {% load static %}
 
+<style>
+  table tr:hover{
+    cursor: move;
+  }
+</style>
+
+<meta name="csrf-token" content="{{ csrf_token }}">
+  
 <section class="section">
     <div class="section-body">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-primary text-white-all">
-            <li class="breadcrumb-item"><a href="#"></i> Asosiy</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'list_page' %}"></i> Asosiy</a></li>
             <li class="breadcrumb-item"><a href="#">Sayohatlar ro'yxati</a></li>
           </ol>
         </nav>
@@ -16,11 +24,12 @@
                 <h4>Sayohatlar ro'yxati</h4>
                 <div class="card-header-action">
                 <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createModal">
-                    <i class="ion-plus"></i> Yaratish
+                  <i class="ion-plus"></i> Yaratish
                 </a>
                 </div>
             </div>
             <div class="card-body">
+              {% if trips %}
               <table class="table table-hover">
                 <thead>
                   <tr>
@@ -30,20 +39,28 @@
                     <th class="text-center">Harakatlar</th>
                   </tr>
                 </thead>
-                <tbody>
-                    {% for trips in trips %}
-                  <tr>
-                    <th scope="row">1</th>
-                    <td class="text-center"><img src="{{trips.image.url}}" width="60px" height="30px" alt="rasm"></td>
-                    <td class="text-center">{{trips.title_en}}</td>
-                    <td class="text-center">
-                        <a href="{% url 'trip_detail' trips.uuid %}" class="btn btn-warning"><i class="ion-android-create"></i></a>
-                        <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"><i class="ion-android-delete"></i></a>
-                    </td>
+                <tbody id="trip-sortable">
+                  {% for trip in trips %}
+                  <tr data-id="{{ trip.uuid }}">
+                      <th scope="row">{{ forloop.counter }}</th>
+                      <td class="text-center"><img src="{{ trip.image.url }}" width="60px" height="30px" alt="rasm"></td>
+                      <td class="text-center">{{ trip.title_en }}</td>
+                      <td class="text-center">
+                          <a href="{% url 'trip_detail' trip.uuid %}" class="btn btn-warning"><i class="ion-android-create"></i></a>
+                          <a href="{% url 'trip_delete' trip.uuid %}" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal-{{ trip.uuid }}"><i class="ion-android-delete"></i></a>
+                      </td>
                   </tr>
-                    {% endfor %}
+                  {% endfor %}
                 </tbody>
+                
+              
             </table>
+            {% else %}
+            <div class="d-flex justify-content-center align-items-center flex-column">
+                <img src="{% static 'img/image.png' %}" alt="" style="width: 50%; height: 50%; object-fit: cover;">
+                <h5 class="pb-4">Ma'lumot topilmadi</h5>
+              </div>
+          {% endif %}
           </div>
         </div>
 
@@ -63,11 +80,11 @@
         </div>
         <div class="modal-body">
           <div class="form-group">
-            <label>Image</label>
+            <label>Rasm</label>
             <input type="file" class="form-control" name="image" required>
           </div>
           <div class="form-group">
-            <label>Inglizcha nom</label>
+            <label>Inglizcha nomi</label>
             <input type="text" class="form-control" name="title_en" required>
           </div>
           <div class="form-group">
@@ -85,7 +102,7 @@
 </div>
 
 {% for trip in trips %}
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteModal-{{ trip.uuid }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <form action="{% url 'trip_delete' trip.uuid %}" method="post">
       {% csrf_token %}
@@ -108,6 +125,44 @@
   </div>
 </div>
 {% endfor %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    let sortable = new Sortable(document.getElementById('trip-sortable'), {
+        animation: 150,
+        delay: 200,
+        delayOnTouchOnly: true,
+        onEnd: function () {
+            let order = [];
+            document.querySelectorAll('#trip-sortable tr').forEach(function (el) {
+                order.push(el.getAttribute('data-id'));
+            });
+
+            fetch("{% url 'trip_reorder' %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': csrfToken
+                },
+                body: 'order=' + JSON.stringify(order)
+            }).then(response => {
+                if (!response.ok) throw new Error("Xatolik");
+                return response.json();
+            }).then(data => {
+                console.log("Yangi tartib saqlandi");
+            }).catch(err => {
+                alert("Xatolik yuz berdi");
+            });
+        }
+    });
+});
+</script>
+
 
 {% endblock content %}
 
