@@ -1,9 +1,8 @@
 from django.db import models
 from uuid import uuid4
 from bs4 import BeautifulSoup
-import translators as ts    
-
-
+import translators as ts   
+ 
 class BaseModel(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     is_active = models.BooleanField(default=True)
