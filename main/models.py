@@ -232,6 +232,8 @@ class Testimionals(BaseModel):
     content_de = models.CharField(max_length=255, null=True, blank=True)
     content_es = models.CharField(max_length=255, null=True, blank=True)
 
+
+
 # Odilbek end
 
 ########################################################
