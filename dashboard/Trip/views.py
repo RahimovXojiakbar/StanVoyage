@@ -31,7 +31,7 @@ def trip_list(request):
 def trip_detail(request, uuid):
     trip = models.Trip.objects.get(uuid=uuid)
     trip_images = models.TripImages.objects.filter(trip=trip, is_active=True)
-    trip_days = models.TripDays.objects.filter(trip=trip, is_active=True)
+    trip_days = models.TripDays.objects.filter(trip=trip, is_active=True).order_by('order')
     services = models.Service.objects.filter(trip=trip, is_active=True)
 
     context = {
@@ -162,6 +162,15 @@ def service_delete(request, uuid):
     
 
 
+@csrf_exempt
+def trip_days_reorder(request):
+    if request.method == "POST":
+        order = json.loads(request.POST.get("order", "[]"))
+        for index, uuid in enumerate(order):
+            models.TripDays.objects.filter(uuid=uuid).update(order=index)
+        return JsonResponse({"status": "ok"})
+    return JsonResponse({"status": "fail"}, status=400)
+
 @login_required(login_url='login')
 def trip_days_detail(request, uuid):
     trip_days = models.TripDays.objects.get(uuid=uuid)
@@ -272,3 +281,5 @@ def mark_as_read(request, uuid):
         except models.TripOrder.DoesNotExist:
             pass  # Optionally handle missing contact
     return redirect(request.META.get('HTTP_REFERER', 'list_page')) 
+
+

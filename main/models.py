@@ -119,7 +119,6 @@ class OurMission(BaseModel):
     content_de = models.TextField(null=True, blank=True)
     content_es = models.TextField(null=True, blank=True)
 
-
 class Instructions(BaseModel):
     image = models.ImageField(upload_to='instructions/')
     title_en = models.CharField(max_length=255)
@@ -295,7 +294,6 @@ class TripImages(BaseModel):
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE)
     
     image = models.ImageField(upload_to='trip_images')
-    order = models.PositiveIntegerField(default=0)
     
 class TripOrder(BaseModel):
     trip = models.ForeignKey(Trip, on_delete=models.SET_NULL, null=True, blank=True)
