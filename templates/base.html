@@ -109,7 +109,7 @@
                 <i data-feather="book"></i><span>Ko'rsatmalar</span>
               </a>
             </li>
-            <li class="dropdown">
+            <li class="dropdown {% if 'dashboard/blog/Blog/list/' in request.path or 'dashboard/blog/Blog/detail/' in request.path %} active {% endif %}">
               <a href="{% url 'blog_list' %}" class="nav-link">
                 <i data-feather="file-text"></i><span>Blog</span>
               </a>
@@ -119,8 +119,8 @@
                 <i data-feather="message-circle"></i><span>Izohlar</span>
               </a>
             </li>
-            <li class="dropdown">
-              <a href="#" class="nav-link">
+            <li class="dropdown {% if 'dashboard/traditions/Traditions/list/' in request.path or 'dashboard/traditions/Traditions/detail/' in request.path %} active {% endif %}">
+              <a href="{% url 'tradition_list' %}" class="nav-link">
                 <i data-feather="heart"></i><span>An'analar</span>
               </a>
             </li>

@@ -2,7 +2,9 @@ from django.shortcuts import render
 from django.shortcuts import render, redirect, get_object_or_404
 from main import models
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
+@login_required(login_url='login')
 def tradition_list(request):
     traditions = models.Traditions.objects.filter(is_active=True)
     context = {
@@ -10,7 +12,7 @@ def tradition_list(request):
     }
     return render(request, 'traditions/list.html', context)
 
-
+@login_required(login_url='login')
 def tradition_detail(request, uuid):
     tradition = get_object_or_404(models.Traditions, uuid=uuid)
     context = {
@@ -18,7 +20,7 @@ def tradition_detail(request, uuid):
     }
     return render(request, 'traditions/detail.html', context)
 
-
+@login_required(login_url='login')
 def tradition_edit(request, uuid):
     tradition = get_object_or_404(models.Traditions, uuid=uuid)
     if request.method == 'POST':
@@ -55,7 +57,7 @@ def tradition_edit(request, uuid):
     context = {'tradition': tradition}
     return render(request, 'traditions/edit.html', context)
 
-
+@login_required(login_url='login')
 def tradition_create(request):
     if request.method == 'POST':
         subtitle_en = request.POST.get('subtitle_en')
@@ -71,7 +73,7 @@ def tradition_create(request):
         return redirect('tradition_detail', new_tradition.uuid)
 
 
-
+@login_required(login_url='login')
 def tradition_delete(request, uuid):
     tradition = get_object_or_404(models.Traditions, uuid=uuid)
     if request.method == 'POST':

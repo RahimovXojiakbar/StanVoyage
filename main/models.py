@@ -1,8 +1,14 @@
 from django.db import models
 from uuid import uuid4
 from bs4 import BeautifulSoup
+<<<<<<< HEAD
 import translators as ts   
  
+=======
+import translators as ts    
+
+
+>>>>>>> 4ca5d59492362d1f8abe32c208911f0ed9e376e3
 class BaseModel(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     is_active = models.BooleanField(default=True)
