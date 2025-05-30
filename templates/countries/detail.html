@@ -22,51 +22,51 @@
                 <form action="{% url 'country_edit' country.uuid %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="row mb-4">
-                        <div class="form-group col-12">
+                        <div class="form-group col-md-12">
                             <label>Rasm</label>
                             <input type="file" class="form-control", name="image">
                         </div>
-                        <div class="form-group col-6">
+                        <div class="form-group col-md-6">
                             <label>Inglizcha nomi</label>
                             <input type="text" class="form-control" value="{{country.title_en}}" name="title_en">
                         </div>
-                        <div class="form-group col-6">
+                        <div class="form-group col-md-6">
                             <label>Ruscha nomi</label>
                             <input type="text" class="form-control" value="{{country.title_ru}}" name="title_ru">
                         </div>
-                        <div class="form-group col-6">
+                        <div class="form-group col-md-6">
                             <label>Fransuzcha nomi</label>
                             <input type="text" class="form-control" value="{{country.title_fr}}" name="title_fr">
                         </div>
-                        <div class="form-group col-6">
+                        <div class="form-group col-md-6">
                             <label>Nemischa nomi</label>
                             <input type="text" class="form-control" value="{{country.title_de}}" name="title_de">
                         </div>
-                        <div class="form-group col-6">
+                        <div class="form-group col-md-6">
                             <label>Ispancha nomi</label>
                             <input type="text" class="form-control" value="{{country.title_es}}" name="title_es">
                         </div>
-                        <div class="form-group col-6">
+                        <div class="form-group col-md-6">
                             <label>Tahrirlangan sana</label>
                             <input type="text" class="form-control" value="{{country.updated_at |date:'Y-m-d H:i'}}" name="updated_at" readonly>
                         </div>
-                        <div class="form-group col-6">
+                        <div class="form-group col-md-6">
                             <label>Inglizcha tavsifi</label>
                             <textarea class="summernote" name="description_en">{{country.description_en}}</textarea >
                         </div>
-                        <div class="form-group col-6">
+                        <div class="form-group col-md-6">
                             <label>Ruscha tavsifi</label>
                             <textarea class="summernote" name="description_ru">{{country.description_ru}}</textarea >
                         </div>
-                        <div class="form-group col-6">
+                        <div class="form-group col-md-6">
                             <label>Fransuzcha tavsifi</label>
                             <textarea class="summernote"name="description_fr">{{country.description_fr}}</textarea >
                         </div>
-                        <div class="form-group col-6">
+                        <div class="form-group col-md-6">
                             <label>Nemischa tavsifi</label>
                             <textarea class="summernote" name="description_de">{{country.description_de}}</textarea >
                         </div>
-                        <div class="form-group col-12">
+                        <div class="form-group col-md-12">
                             <label>Ispancha tavsifi</label>
                             <textarea class="summernote" name="description_es">{{country.description_es}}</textarea >
                         </div>

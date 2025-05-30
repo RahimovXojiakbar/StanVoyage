@@ -18,6 +18,7 @@ urlpatterns = [
     path('trip/trip/days/create/<str:uuid>/', views.trip_days_create, name='trip_days_create'),
     path('trip/trip/days/update/<str:uuid>/', views.trip_days_update, name='trip_days_update'),
     path('trip/trip/days/delete/<str:uuid>/', views.trip_days_delete, name='trip_days_delete'),
+    path('trip/trip/days/reorder/', views.trip_days_reorder, name='trip_days_reorder'),
 
     path('trip/trip/images/create/<str:uuid>/', views.trip_images_create, name='trip_images_create'),
     path('trip/trip/images/update/<str:uuid>/', views.trip_images_update, name='trip_images_update'),

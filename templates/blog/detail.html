@@ -82,4 +82,184 @@
 </section>
 
 
+<!--Blog Image-->
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h4>Blog rasmlari</h4>
+        <div class="card-header-action">
+            <button class="btn btn-primary" data-toggle="modal" data-target="#createLImageModal">
+                <i class="ion-plus"></i> Yaratish
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        
+        <style>
+            .blog-image-card {
+                border-radius: 15px;
+                overflow: hidden;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                animation: fadeInUp 0.5s forwards;
+                margin-bottom: 15px;
+            }
+            .blog-image-card img {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+                transition: transform 0.4s ease;
+            }
+            .blog-image-card:hover img {
+                transform: scale(1.05);
+            }
+            .card-overlay {
+                position: relative;
+            }
+            .overlay-text {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.4);
+                color: #fff;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                font-size: 16px;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                text-align: center;
+                padding: 10 px;
+            }
+            .blog-image-card:hover .overlay-text {
+                opacity: 1;
+            }
+            .overlay-text .btn {
+                margin: 5px;
+                font-size: 14px;
+            }
+            @keyframes fadeInUp {
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        </style>
+            
+            {% if blog_images %}
+        <div class="row card-row" id="blogRow">
+            {% for blog_image in blog_images %}
+            
+            <div class="col-md-4 mb-3">
+                <div class="blog-image-card">
+                    <div class="card-overlay">
+                        <img src="{{ blog_image.image.url }}" alt="image">
+                        <div class="overlay-text">
+                            <button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#editLImageModal{{ blog_image.uuid }}">
+                                <i class="ion-android-create"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteLImageModal{{ blog_image.uuid }}">
+                                <i class="ion-android-delete"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+
+
+                    <!-- Edit Modal -->
+                    <div class="modal fade" id="editLImageModal{{ blog_image.uuid }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel{{  blog_image.uuid }}" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editModalLabel{{ blog_image.uuid }}">Blog rasmini tahrirlash</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form action="{% url 'blog_images_update' blog_image.uuid  %}" method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label>Rasm</label>
+                                            <input type="file" class="form-control" name="image">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Yopish</button>
+                                        <button type="submit" class="btn btn-primary"><i class="ion-android-cloud-done"></i> Saqlash</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Delete Modal -->
+                    <div class="modal fade" id="deleteLImageModal{{ blog_image.uuid }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel{{ blog_image.uuid }}" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="deleteModalLabel{{ blog_image.uuid }}">Blog rasmi o'chirilsinmi</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form action="{% url 'blog_images_delete' blog_image.uuid %}" method="POST">
+                                                {% csrf_token %}
+                                                <div class="modal-body">
+                                                    Blog rasmi o'chirilsinmi?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Yopish</button>
+                                                    <button type="submit" class="btn btn-danger"><i class="ion-android-delete"></i> O'chirish</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                    </div>
+        {% endfor %}
+        </div>
+        {% else %}
+            <div class="d-flex justify-content-center align-items-center flex-column">
+                <img src="{% static 'img/image.png' %}" alt="" style="width: 50%; height: 50%; object-fit: cover;">
+                <h5 class="pb-4">Ma'lumot topilmadi</h5>
+              </div>
+         {% endif %}
+
+                    <!-- Create Modal -->
+                    <div class="modal fade" id="createLImageModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="createModalLabel">Blog rasmini yaratish</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form action="{% url 'blog_images_create' blog.uuid %}" method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                               <label>Rasm</label>
+                                                <input type="file" class="form-control" name="image" required>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Yopish</button>
+                                            <button type="submit" class="btn btn-primary"><i class="ion-plus"></i> Yaratish</button>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                    </div>
+                        
+    </div>
+</div>
+
+
 {% endblock content %}

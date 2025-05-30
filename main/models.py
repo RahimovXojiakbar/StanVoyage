@@ -1,9 +1,14 @@
 from django.db import models
 from uuid import uuid4
- 
 from bs4 import BeautifulSoup
+<<<<<<< HEAD
+import translators as ts   
+ 
+=======
 import translators as ts    
 
+
+>>>>>>> 4ca5d59492362d1f8abe32c208911f0ed9e376e3
 class BaseModel(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     is_active = models.BooleanField(default=True)
@@ -165,7 +170,6 @@ class OurMission(BaseModel):
     content_de = models.TextField(null=True, blank=True)
     content_es = models.TextField(null=True, blank=True)
 
-
 class Instructions(BaseModel):
     image = models.ImageField(upload_to='instructions/')
     title_en = models.CharField(max_length=255)
@@ -233,6 +237,8 @@ class Testimionals(BaseModel):
     content_fr = models.CharField(max_length=255, null=True, blank=True)
     content_de = models.CharField(max_length=255, null=True, blank=True)
     content_es = models.CharField(max_length=255, null=True, blank=True)
+
+
 
 # Odilbek end
 
@@ -341,7 +347,6 @@ class TripImages(BaseModel):
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE)
     
     image = models.ImageField(upload_to='trip_images')
-    order = models.PositiveIntegerField(default=0)
     
 class TripOrder(BaseModel):
     trip = models.ForeignKey(Trip, on_delete=models.SET_NULL, null=True, blank=True)
