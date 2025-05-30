@@ -142,82 +142,82 @@
                     }
                 </style>
                 {% if small_banners %}
-                <div class="row card-row" id="bannerRow">
-                    {% for small_banner in small_banners %}
-                    <div class="col-md-3">
+                    <div class="row card-row" id="bannerRow">
+                        {% for small_banner in small_banners %}
+                        <div class="col-md-3">
 
-                      <div class="small-banner-card">
-                          <div class="card-overlay">
-                              <img src="{{ small_banner.image.url }}" alt="image">
-                              <div class="overlay-text">
-                                  <button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#editModal{{ small_banner.uuid }}">
-                                      <i class="ion-android-create"></i>
-                                  </button>
-                                  <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal{{ small_banner.uuid }}">
-                                     <i class="ion-android-delete"></i>
-                                  </button>
-                              </div>
-                          </div>
-                      </div>
-                    </div>
+                        <div class="small-banner-card">
+                            <div class="card-overlay">
+                                <img src="{{ small_banner.image.url }}" alt="image">
+                                <div class="overlay-text">
+                                    <button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#editModal{{ small_banner.uuid }}">
+                                        <i class="ion-android-create"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal{{ small_banner.uuid }}">
+                                        <i class="ion-android-delete"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
 
-                        <!-- Edit Modal -->
-                        <div class="modal fade" id="editModal{{ small_banner.uuid }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel{{ small_banner.uuid }}" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="editModalLabel{{ small_banner.uuid }}">Kichik bannerni tahrirlash</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <form action="{% url 'SmallBanner_edit' small_banner.uuid %}" method="POST" enctype="multipart/form-data">
-                                        {% csrf_token %}
-                                        <div class="modal-body">
-                                            <div class="form-group">
-                                                <label>Rasm</label>
-                                                <input type="file" class="form-control" name="image">
+                            <!-- Edit Modal -->
+                            <div class="modal fade" id="editModal{{ small_banner.uuid }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel{{ small_banner.uuid }}" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="editModalLabel{{ small_banner.uuid }}">Kichik bannerni tahrirlash</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form action="{% url 'SmallBanner_edit' small_banner.uuid %}" method="POST" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label>Rasm</label>
+                                                    <input type="file" class="form-control" name="image">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Yopish</button>
-                                            <button type="submit" class="btn btn-primary"><i class="ion-android-cloud-done"></i> Saqlash</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Delete Modal -->
-                        <div class="modal fade" id="deleteModal{{ small_banner.uuid }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel{{ small_banner.uuid }}" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="deleteModalLabel{{ small_banner.uuid }}">Kichik bannerni o'chirish</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Yopish</button>
+                                                <button type="submit" class="btn btn-primary"><i class="ion-android-cloud-done"></i> Saqlash</button>
+                                            </div>
+                                        </form>
                                     </div>
-                                    <form action="{% url 'SmallBanner_delete' small_banner.uuid %}" method="POST">
-                                        {% csrf_token %}
-                                        <div class="modal-body">
-                                            Kichik bannerni o'chirmoqchimisiz?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Yopish</button>
-                                            <button type="submit" class="btn btn-danger"><i class="ion-android-delete"></i> O'chirish</button>
-                                        </div>
-                                    </form>
                                 </div>
                             </div>
-                        </div>
-                    {% endfor %}
-                </div>
+
+                            <!-- Delete Modal -->
+                            <div class="modal fade" id="deleteModal{{ small_banner.uuid }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel{{ small_banner.uuid }}" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalLabel{{ small_banner.uuid }}">Kichik bannerni o'chirish</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form action="{% url 'SmallBanner_delete' small_banner.uuid %}" method="POST">
+                                            {% csrf_token %}
+                                            <div class="modal-body">
+                                                Kichik bannerni o'chirmoqchimisiz?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Yopish</button>
+                                                <button type="submit" class="btn btn-danger"><i class="ion-android-delete"></i> O'chirish</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
                 {% else %}
-                <div class="d-flex justify-content-center align-items-center flex-column">
-                <img src="{% static 'img/image.png' %}" alt="" style="width: 50%; height: 50%; object-fit: cover;">
-                <h5 class="pb-4">Malumot topilmadi</h5>
-                </div>
+                    <div class="d-flex justify-content-center align-items-center flex-column">
+                    <img src="{% static 'img/image.png' %}" alt="" style="width: 50%; height: 50%; object-fit: cover;">
+                    <h5 class="pb-4">Malumot topilmadi</h5>
+                    </div>
                 {% endif %}
                 <!-- Create Modal -->
                 <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
