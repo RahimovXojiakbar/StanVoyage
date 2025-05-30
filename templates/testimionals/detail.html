@@ -19,31 +19,31 @@
                 <form action="{% url 'testimionals_update' testimional.uuid %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="row">
-                        <div class="form-group col-6">
+                        <div class="form-group col-md-6">
                             <label>Mijoz ismi</label>
                             <input type="text" class="form-control" value="{{testimional.author}}" name="author">
                         </div>
-                        <div class="form-group col-6">
+                        <div class="form-group col-md-6">
                             <label>Tahrirlangan sana</label>
                             <input type="text" class="form-control" value="{{testimional.updated_at |date:'Y-m-d H:i'}}" name="updated_at" readonly>
                         </div>
-                        <div class="form-group col-6">
+                        <div class="form-group col-md-6">
                             <label>Inglizcha tavsifi</label>
                             <textarea class="summernote" name="content_en">{{ testimional.content_en }}</textarea >
                         </div>
-                        <div class="form-group col-6">
+                        <div class="form-group col-md-6">
                             <label>Ruscha tavsifi</label>
                             <textarea class="summernote" name="content_ru">{{ testimional.content_ru }}</textarea >
                         </div>
-                        <div class="form-group col-6">
+                        <div class="form-group col-md-6">
                             <label>Fransuzcha tavsifi</label>
                             <textarea class="summernote" name="content_fr">{{ testimional.content_fr }}</textarea >
                         </div>
-                        <div class="form-group col-6">
+                        <div class="form-group col-md-6">
                             <label>Nemischa tavsifi</label>
                             <textarea class="summernote" name="content_de">{{ testimional.content_de }}</textarea >
                         </div>
-                        <div class="form-group col-12">
+                        <div class="form-group col-md-12">
                             <label>Ispancha tavsifi</label>
                             <textarea class="summernote" name="content_es">{{ testimional.content_es }}</textarea >
                         </div>
